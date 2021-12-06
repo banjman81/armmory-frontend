@@ -7,6 +7,14 @@ export class Home extends Component {
     }
 
     async componentDidMount(){
-        
+
+    }
+
+    render(){
+        return(
+            <div>
+                <h1>Home</h1>
+            </div>
+        )
     }
 }
