@@ -1,3 +1,13 @@
+.nav-container{
+    display: flex;
+    justify-content: space-between;
+    list-style-type: none;
+    align-items: center;
+    background-color: gray;
+    margin: 0;
+    height: 7vh;
+}
+
 .nav-bar{
     display: flex;
     justify-content: flex-start;
@@ -6,5 +16,13 @@
 }
 
 .nav-bar li{
+    margin: 0 20px;
+}
+
+.nav-link{
+    text-decoration: none;
+    color: white;
+}
+.search-bar{
     margin: 0 20px;
 }

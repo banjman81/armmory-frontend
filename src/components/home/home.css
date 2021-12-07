@@ -1,0 +1,16 @@
+.home-container{
+    display: flex;
+    /* justify-content: space-evenly; */
+    flex-wrap: wrap;
+    flex-direction: row;
+    text-align: center;
+}
+
+.item-container{
+    width: 21%;
+    margin: 2%;
+}
+
+.item-container img{
+    width: 95%;
+}
