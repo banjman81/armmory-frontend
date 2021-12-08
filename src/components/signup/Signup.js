@@ -7,9 +7,35 @@ import UsernameHooks from "../hooks/signupHooks/UsernameHooks";
 import PasswordHooks from "../hooks/signupHooks/PasswordHooks";
 import ConfirmPasswordHooks from "../hooks/signupHooks/ConfirmPasswordHooks";
 
+import { toast } from "react-toastify";
+
 import MainLogo from '../img/logo.svg'
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function SignUp(){
+
+    let navigate = useNavigate()
+
+    const notifySuccess = () => toast.success('User successfully created!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
+    
+    const notifyFailed = (input) => toast.error(`${input}`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
 
     const [firstName, handleFirstNameOnChange, firstNameError, setFirstNameOnFocus, setFirstNameOnBlur] = FirstNameHooks()
     const [lastName, handleLastNameOnChange, lastNameError, setOnFocus, setOnBlur] = LastNameHooks()
@@ -20,7 +46,31 @@ function SignUp(){
 
     async function handleSubmit(e){
         e.preventDefault()
-        console.log(firstName)
+        try{
+
+            let payload = await axios.post('http://localhost:3001/api/users/create-user',
+            {
+                firstName,
+                lastName,
+                username,
+                email,
+                password,
+                confirmPassword
+            })
+
+            console.log(payload)
+
+            navigate('/')
+
+        }catch(e){
+            let arr = []
+            console.log(e.response)
+            for(let key in e.response.data.error){
+                arr.push(e.response.data.error[key])
+            }
+            console.log(arr)
+            notifyFailed(e.response.data.error.message)
+        }
     }
 
     return(
