@@ -12,7 +12,7 @@ function Nav(){
             </ul>
             <div className="search-bar">
                 <input type="text" name="" id="" />
-                <button>Search</button>
+                <button className="btn btn-secondary">Search</button>
             </div>
         </div>
     )

@@ -13,10 +13,17 @@
     justify-content: flex-start;
     list-style-type: none;
     align-items: center;
+    margin: 0;
+    padding: 0;
 }
+
 
 .nav-bar li{
     margin: 0 20px;
+}
+
+.nav-bar h1{
+    margin: 0;
 }
 
 .nav-link{
