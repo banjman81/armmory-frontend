@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './user.css'
 import FirstNameHooks from "../hooks/signupHooks/FirstNameHooks";
 import LastNameHooks from "../hooks/signupHooks/LastNameHooks";
@@ -59,17 +59,20 @@ function SignUp(){
             })
 
             console.log(payload)
-
+            notifySuccess()
             navigate('/')
 
         }catch(e){
+            
             let arr = []
-            console.log(e.response)
             for(let key in e.response.data.error){
                 arr.push(e.response.data.error[key])
             }
-            console.log(arr)
-            notifyFailed(e.response.data.error.message)
+            if(arr[0].length === 1){
+                notifyFailed(e.response.data.error)
+            }else{
+                arr.map( error => notifyFailed(error))
+            }
         }
     }
 
