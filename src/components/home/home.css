@@ -1,4 +1,4 @@
-.home-container{
+.lists-container{
     display: flex;
     /* justify-content: space-evenly; */
     flex-wrap: wrap;
@@ -26,6 +26,10 @@
     justify-content: center;
     align-items: center;
 }
+.item-container p{
+    text-align: left;
+    padding: 10px;
+}
 .loader {
     border: 16px solid #f3f3f3; /* Light grey */
     border-top: 16px solid #3498db; /* Blue */
@@ -47,4 +51,22 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.game-link{
+    text-decoration: none;
+    color: black;
+}
+
+.game-link:hover{
+    color: black;
+}
+
+.sort-form{
+    margin-bottom: 10px;
+}
+
+.sort-form form{
+    position: relative;
+    top: 20px;
 }

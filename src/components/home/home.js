@@ -1,54 +1,80 @@
 import axios from "axios";
-import React, {Component} from "react";
+import React, {Component, useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import './home.css'
 
 
-export class Home extends Component {
-    state = {
-        isLoading : false,
-        gameArray : []
+export function Home(){
+
+    const [isLoading, setIsLoading] = useState(false)
+    const [gameArray, setGameArray] = useState([])
+    const [option, setOption] = useState('')
+    const [updated, setUpdated] = useState(false)
+    const [num, setNum] = useState(0)
+
+    useEffect(() => {
+        fetchMmos('https://www.mmobomb.com/api1/games')
+    }, [])
+
+
+    const handleFilter = async (e) => {
+        e.preventDefault()
+        fetchMmos(`https://www.mmobomb.com/api1/games?sort-by=${option}`)
+        setUpdated(!updated)
+        console.log(option, 1)
     }
 
-    async componentDidMount(){
-
-        this.setState({
-            isLoading : true
-        })
-
+    async function fetchMmos(url){
+        setIsLoading(true)
         try{
-
-            let payload = await axios.get('https://www.mmobomb.com/api1/games')
-            // console.log(payload)
-            this.setState({
-                gameArray : payload.data,
-                isLoading : false
-            })
+            let payload = await axios.get(url)
+            setGameArray(payload.data)
+            setIsLoading(false)
 
         }catch(err){
             console.log(err)
         }
-
     }
 
-    render(){
-        return(
-            <div className="home-container">
-                {this.state.isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
-                    this.state.gameArray.map((item) => {
+    
+    return(
+        <div className="home-container">
+            <div className="sort-form">
+                <form onSubmit={(e) => handleFilter(e)}>
+                    <select defaultValue={'DEFAULT'} onChange={(e) => setOption(e.target.value)}>
+                        <option value="DEFAULT" disabled>sort display lists</option>
+                        <option value="relavance">relavance</option>
+                        <option value="release-date">release date</option>
+                        <option value="alphabtical">alphabetical</option>
+                    </select>
+                    
+                    <button style={{marginLeft: "10px"}}>select</button>
+                </form>
+                {/* {num}
+                <button onClick={() => setNum(num + 1)}>add</button> */}
+            </div>
+            <div className="lists-container">
+                {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
+                    gameArray.map((item) => {
 
-                        if(item.short_description.length > 150){
-                            item.short_description = `${item.short_description.slice(1, 147)}...`
+                        if(item.short_description.length > 75){
+                            item.short_description = `${item.short_description.slice(0, 75)}...`
                         }
                         return(
                             <div key={item.id} className="item-container">
-                                <h3>{item.title}</h3>
-                                <img src={item.thumbnail} alt="img" />
-                                <p>{item.short_description}</p>
+                                <Link className="game-link" to={`/game/${item.id}`}>
+                                    <h3>{item.title}</h3>
+                                    <img src={item.thumbnail} alt="img" />
+                                    <p>{item.short_description}</p>
+                                </Link>
                             </div>
                         )
                     })
                 )}
             </div>
-        )
-    }
+        </div>
+    )
+    
 }
+
+
