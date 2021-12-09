@@ -1,6 +1,5 @@
 .form-wrapper{
-    min-height: 80vh;
-    max-height: 90vh;
+    height: 89vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -57,6 +56,10 @@ form{
 .firstname{
     margin-right: 10px;
     width: 98%;
+    margin-bottom: 0;
+}
+.lastname{
+    margin-bottom: 0;
 }
 
 .main-logo{

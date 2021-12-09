@@ -35,9 +35,13 @@ export class Home extends Component {
             <div className="home-container">
                 {this.state.isLoading ? ("LOading...") :(
                     this.state.gameArray.map((item) => {
+
+                        if(item.short_description.length > 150){
+                            item.short_description = `${item.short_description.slice(1, 147)}...`
+                        }
                         return(
                             <div key={item.id} className="item-container">
-                                <h1>{item.title}</h1>
+                                <h3>{item.title}</h3>
                                 <img src={item.thumbnail} alt="img" />
                                 <p>{item.short_description}</p>
                             </div>

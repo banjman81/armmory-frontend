@@ -12,6 +12,7 @@ import Signin from './components/signin/signin';
 import Logout from './components/signin/Logout';
 
 import {UserContext} from './components/context/userContext'
+import Footer from './components/footer/Footer';
 
 
 
@@ -44,6 +45,7 @@ function App() {
             <Route path="/logout" element={<Logout/>}></Route>
           </Routes>
         </UserContext.Provider>
+        <Footer />
       </Router>
     </div>
   );

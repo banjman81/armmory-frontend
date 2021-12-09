@@ -9,8 +9,20 @@
 .item-container{
     width: 21%;
     margin: 2%;
+    height: 35;
+    /* border: 1px solid red; */
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
 }
 
 .item-container img{
     width: 95%;
+}
+
+.item-container h3{
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

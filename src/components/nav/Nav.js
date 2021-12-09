@@ -5,8 +5,7 @@ import './nav.css'
 import {UserContext} from '../context/userContext'
 
 function Nav(){
-    const navigate = useNavigate()
-    const {user, setUser} = useContext(UserContext)
+    const {user} = useContext(UserContext)
     const [search, setSearch] = useState("")
 
     let linkTitle1= user ? user.username : "Sign Up"
