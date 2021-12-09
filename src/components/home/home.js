@@ -33,7 +33,7 @@ export class Home extends Component {
     render(){
         return(
             <div className="home-container">
-                {this.state.isLoading ? ("LOading...") :(
+                {this.state.isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
                     this.state.gameArray.map((item) => {
 
                         if(item.short_description.length > 150){

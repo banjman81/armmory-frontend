@@ -8,8 +8,8 @@ function Nav(){
     const {user} = useContext(UserContext)
     const [search, setSearch] = useState("")
 
-    let linkTitle1= user ? user.username : "Sign Up"
-    let link1 = user ? "/profile" : "/signup"
+    let linkTitle1= user?.username ? user.username : "Sign Up"
+    let link1 = user?.username ? "/profile" : "/signup"
 
     let linkTitle2= user ? "Logout" : "Sign In"
     let link2 = user ? '/logout' : "/signin"
