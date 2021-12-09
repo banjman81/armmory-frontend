@@ -90,3 +90,7 @@ form{
     color: rgb(255, 255, 255);
 }
 
+.login-input{
+    width: 400px;
+}
+

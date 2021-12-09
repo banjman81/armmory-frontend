@@ -2,6 +2,7 @@ import axios from "axios";
 import React, {Component} from "react";
 import './home.css'
 
+
 export class Home extends Component {
     state = {
         isLoading : false,
@@ -17,7 +18,7 @@ export class Home extends Component {
         try{
 
             let payload = await axios.get('https://www.mmobomb.com/api1/games')
-            console.log(payload)
+            // console.log(payload)
             this.setState({
                 gameArray : payload.data,
                 isLoading : false
