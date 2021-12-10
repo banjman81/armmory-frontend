@@ -74,6 +74,10 @@
     margin: 0 10px;
 }
 
+.sort-form form select{
+    margin: 0 10px;
+}
+
 .sort-form button{
     border: 1px solid #6c757d;
     border-radius: 5px;

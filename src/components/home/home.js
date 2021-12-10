@@ -73,8 +73,8 @@ export function Home(){
                     </select>
                     <select defaultValue={'DEFAULT'} onChange={(e) => setFilterOption(e.target.value)}>
                         <option value="DEFAULT" disabled>filter genre</option>
-                        {filteredGenre.map(item => {
-                            return <option value={item}>{item}</option>
+                        {filteredGenre.map((item, index) => {
+                            return <option key={index} value={item}>{item}</option>
                         })}
                     </select>
                     

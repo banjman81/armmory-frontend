@@ -12,7 +12,7 @@ import {UserContext} from '../context/userContext'
 
 function Signin(){
 
-    const {setUser} = useContext(UserContext)
+    const {user, setUser} = useContext(UserContext)
 
     let navigate = useNavigate()
 
@@ -49,9 +49,13 @@ function Signin(){
                 password
             })
 
-            const userData = jwt.verify(payload.data.token, process.env.REACT_APP_JWT_USER_SECRET)
+            const userDetail = await axios.get(`http://localhost:3001/api/users/getUserByEmail/${email}`)
+            
 
-            setUser(userData)
+            setUser(userDetail.data)
+            console.log(userDetail.data)
+            console.log(user, 232)
+            
             localStorage.setItem('loginToken', payload.data.token)
             notifySuccess()
             navigate('/')
@@ -69,6 +73,7 @@ function Signin(){
             }
         }
     }
+
     return(
         <div className="form-wrapper">
             <div className="main-logo">
