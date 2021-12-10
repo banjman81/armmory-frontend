@@ -54,14 +54,12 @@ function Signin(){
 
             setUser(userDetail.data)
             console.log(userDetail.data)
-            console.log(user, 232)
             
             localStorage.setItem('loginToken', payload.data.token)
             notifySuccess()
             navigate('/')
 
         }catch(e){
-            
             let arr = []
             for(let key in e.response.data.error){
                 arr.push(e.response.data.error[key])

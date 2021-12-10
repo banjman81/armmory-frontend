@@ -33,3 +33,8 @@
 .search-bar{
     margin: 0 20px;
 }
+.hidden-nav{
+    background-color: rgb(83, 83, 83);
+    color: white;
+    margin: 0 auto;
+}

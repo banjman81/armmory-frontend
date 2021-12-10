@@ -11,6 +11,9 @@ export function Home(){
     const [option, setOption] = useState('')
     const [filteredGenre, setFilteredGenre] = useState([])
     const [filterOption, setFilterOption] = useState('')
+    const [pageCounter, setPageCounter] = useState(1)
+    const [low, setLow] = useState(1)
+    const [high, setPageHigh] = useState(20)
     let genre = []
 
     useEffect(() => {
@@ -60,6 +63,15 @@ export function Home(){
         }
     }
 
+    function handlePageBack(){
+        
+    }
+
+
+    function handlePageForwared(){
+        
+    }
+
     
     return(
         <div className="home-container">
@@ -83,12 +95,13 @@ export function Home(){
             </div>
             <div className="lists-container">
                 {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
-                    gameArray.map((item) => {
+                    gameArray.map((item, index) => {
 
                         if(item.short_description.length > 75){
                             item.short_description = `${item.short_description.slice(0, 75)}...`
                         }
-                        return(
+                        if(index >= low && index <= high){
+                            return(
                             <div key={item.id} className="item-container">
                                 <Link className="game-link" to={`/game/${item.id}`}>
                                     <h3>{item.title}</h3>
@@ -97,8 +110,15 @@ export function Home(){
                                 </Link>
                             </div>
                         )
+                        }
+                        
                     })
                 )}
+                <div className="page-selector">
+                    <h3 className="page-btn" onClick={pageCounter > 1 ? () => setPageCounter(pageCounter -1) : () => console.log('')}>{"<<"}</h3>
+                    <h3 className="pagecounter">{pageCounter}</h3>
+                    <h3 className="page-btn" onClick={() => setPageCounter(pageCounter +1)}>{">>"}</h3>
+                </div>
             </div>
         </div>
     )

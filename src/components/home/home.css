@@ -89,3 +89,28 @@
     background-color: #636368;
     border: 1px solid #636368;
 }
+
+.page-selector{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.page-btn{
+    border: 1px solid #6c757d;
+    border-radius: 5px;
+    background-color: #6c757d;
+    margin: 10px;
+    padding: 0 10px;
+}
+
+.page-btn:hover{
+    cursor: pointer;
+    margin: 10px;
+    color: white;
+}
+
+.pagecounter{
+    width: 50px;
+}
