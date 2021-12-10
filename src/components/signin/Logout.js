@@ -8,14 +8,15 @@ function Logout() {
     const navigate = useNavigate()
 
     useEffect(() => {
+        function handleLogout(){
+            setUser(null)
+            localStorage.removeItem('loginToken')
+            navigate('/')
+        }
         handleLogout()
     }, [])
 
-    function handleLogout(){
-        setUser(null)
-        localStorage.removeItem('loginToken')
-        navigate('/')
-    }
+    
 
     return (
         <div>

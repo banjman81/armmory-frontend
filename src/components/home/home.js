@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, {Component, useState, useEffect} from "react";
+import React, { useState, useEffect} from "react";
 import { Link } from "react-router-dom";
 import './home.css'
 
@@ -9,19 +9,43 @@ export function Home(){
     const [isLoading, setIsLoading] = useState(false)
     const [gameArray, setGameArray] = useState([])
     const [option, setOption] = useState('')
-    const [updated, setUpdated] = useState(false)
-    const [num, setNum] = useState(0)
+    const [filteredGenre, setFilteredGenre] = useState([])
+    const [filterOption, setFilterOption] = useState('')
+    let genre = []
 
     useEffect(() => {
-        fetchMmos('https://www.mmobomb.com/api1/games')
+
+        async function initialLoad(){
+            setIsLoading(true)
+            try{
+                let payload = await axios.get('https://www.mmobomb.com/api1/games')
+                setGameArray(payload.data)
+                payload.data.map(item => {
+                    genre.push(item.genre)
+                })
+                const uniqueGenre = Array.from(new Set(genre))
+                setFilteredGenre(uniqueGenre)
+                setIsLoading(false)
+    
+            }catch(err){
+                console.log(err)
+            }
+
+        }
+
+        initialLoad()
     }, [])
 
 
-    const handleFilter = async (e) => {
+    const handleFilter = async e => {
         e.preventDefault()
-        fetchMmos(`https://www.mmobomb.com/api1/games?sort-by=${option}`)
-        setUpdated(!updated)
-        console.log(option, 1)
+        if(option.length > 0){
+            fetchMmos(`https://www.mmobomb.com/api1/games?categoty=${filterOption}&sort-by=${option}`)
+            console.log(`https://www.mmobomb.com/api1/games?categoty=${filterOption}&sort-by=${option}`)
+        }else{
+            fetchMmos(`https://www.mmobomb.com/api1/games?categoty=${filterOption}`)
+        }
+        
     }
 
     async function fetchMmos(url){
@@ -45,13 +69,17 @@ export function Home(){
                         <option value="DEFAULT" disabled>sort display lists</option>
                         <option value="relavance">relavance</option>
                         <option value="release-date">release date</option>
-                        <option value="alphabtical">alphabetical</option>
+                        <option value="alphabetical">alphabetical</option>
+                    </select>
+                    <select defaultValue={'DEFAULT'} onChange={(e) => setFilterOption(e.target.value)}>
+                        <option value="DEFAULT" disabled>filter genre</option>
+                        {filteredGenre.map(item => {
+                            return <option value={item}>{item}</option>
+                        })}
                     </select>
                     
                     <button style={{marginLeft: "10px"}}>select</button>
                 </form>
-                {/* {num}
-                <button onClick={() => setNum(num + 1)}>add</button> */}
             </div>
             <div className="lists-container">
                 {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(

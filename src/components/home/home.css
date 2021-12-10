@@ -64,9 +64,24 @@
 
 .sort-form{
     margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
 }
 
 .sort-form form{
     position: relative;
     top: 20px;
+    margin: 0 10px;
+}
+
+.sort-form button{
+    border: 1px solid #6c757d;
+    border-radius: 5px;
+    background-color: #6c757d;
+    color: white;
+}
+
+.sort-form button:hover{
+    background-color: #636368;
+    border: 1px solid #636368;
 }
