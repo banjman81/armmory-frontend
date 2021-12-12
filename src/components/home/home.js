@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect} from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import './home.css'
 
 
@@ -103,7 +103,7 @@ export function Home(){
                         if(index >= low && index <= high){
                             return(
                             <div key={item.id} className="item-container">
-                                <Link className="game-link" to={`/game/${item.id}`}>
+                                <Link className="game-link" to={`/game/${item.id}`} params={{id: item.id}}>
                                     <h3>{item.title}</h3>
                                     <img src={item.thumbnail} alt="img" />
                                     <p>{item.short_description}</p>

@@ -15,6 +15,7 @@ import Logout from './components/signin/Logout';
 import {UserContext} from './components/context/userContext'
 import Footer from './components/footer/Footer';
 import Profile from './components/profile/Profile';
+import Game from './components/game/Game';
 
 
 
@@ -73,6 +74,7 @@ function App() {
             <Route path="/signin" element={<Signin/>}></Route>
             <Route path="/logout" element={<Logout/>}></Route>
             <Route path="/profile" element={<Profile/>}></Route>
+            <Route path="/game/:id" element={<Game/>}></Route>
           </Routes>
         </UserContext.Provider>
         <Footer />

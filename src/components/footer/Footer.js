@@ -3,7 +3,7 @@ import './footer.css'
 
 function Footer() {
     return (
-        <div>
+        <div className='footer'>
             <ul className="footer-list">
                 <li>term and services</li>
                 <li>api source</li>
