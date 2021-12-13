@@ -1,5 +1,5 @@
 .home-container{
-    height: 89vh;
+    height: 87vh;
 }
 
 .log-prompt{
@@ -26,4 +26,10 @@
 .title-text{
     color: white;
     padding-top: 10px;
+}
+
+.desc-text{
+    vertical-align: bottom;
+    width: 80%;
+    margin: 0 auto;
 }

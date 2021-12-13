@@ -50,23 +50,27 @@ export function Home(){
                             <span><h3 className="title-text">{game.title}</h3></span>
                         </div>
                     </Link>
+                    
+                    <span><h4 className="desc-text">{game.short_description}</h4></span>
                     </div>
                 ))} 
                 </Slide>
             </div>
             </div>
-            <div>
+            {user?.username ?  ("") :
+            (<div>
                 <h3>Signin to get access to all the features of Armmory.com</h3>
-            </div>
-            <div className="log-prompt">
-                
-                <div>
-                    <Link to="/signin"><h4>Already Have an account.</h4></Link>
+            
+                <div className="log-prompt">
+                    
+                    <div>
+                        <Link to="/signin"><h4>Already Have an account.</h4></Link>
+                    </div>
+                    <div>
+                        <Link to="/signup"><h4>Join Armmory</h4></Link>
+                    </div>
                 </div>
-                <div>
-                    <Link to="/signup"><h4>Join Armmory</h4></Link>
-                </div>
-            </div>
+            </div>)}
         </div>
     )
     
