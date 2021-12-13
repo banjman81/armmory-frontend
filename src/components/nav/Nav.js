@@ -25,13 +25,11 @@ function Nav(){
             <div className="nav-container">
                 <ul className="nav-bar">
                     <li><Link className="nav-link" to="/"><h2>Home</h2></ Link></li>
-                    {user ? (
-                        <li><Link className="nav-link" to='/games/1'>Games</Link></li>
-                    ): ("")}
-                    {user ? (
+                    <li><Link className="nav-link" to='/games/1'>Games</ Link></li>
+                    {user?.username ? (
                         <li><Link className="nav-link" to='/news'>MMO News</Link></li>
                     ): ("")}
-                    {user ? (
+                    {user?.username ? (
                         <li><Link className="nav-link" to='/giveaways'>Giveaways</Link></li>
                     ): ("")}
                     <li><Link className="nav-link" to={link1}>{linkTitle1}</ Link></li>

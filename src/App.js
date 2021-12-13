@@ -18,6 +18,8 @@ import Profile from './components/profile/Profile';
 import Game from './components/game/Game';
 import { Games } from './components/game/Games';
 
+import PrivateRoute from './components/privateRoute/PrivateRoute';
+
 
 
 function App() {
@@ -71,11 +73,13 @@ function App() {
           />
           <Routes>
             <Route path="/" element={<Home/>}></Route>
-            <Route path="/games/:page" element={<Games/>}></Route>
             <Route path="/signup" element={<SignUp/>}></Route>
             <Route path="/signin" element={<Signin/>}></Route>
-            <Route path="/logout" element={<Logout/>}></Route>
-            <Route path="/profile" element={<Profile/>}></Route>
+            <Route path="/games/:page" element={<Games/>}></Route>
+            <Route path="/logout" element={
+              <PrivateRoute><Logout/></PrivateRoute>}></Route>
+            <Route path="/profile" element={
+              <PrivateRoute><Profile/></PrivateRoute>}></Route>
             <Route path="/game/:id" element={<Game/>}></Route>
           </Routes>
         </UserContext.Provider>

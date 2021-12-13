@@ -4,16 +4,14 @@ import {useNavigate} from "react-router-dom"
 import {UserContext} from '../context/userContext'
 
 function Logout() {
-    const {setUser} = useContext(UserContext)
+    const {user , setUser} = useContext(UserContext)
     const navigate = useNavigate()
 
     useEffect(() => {
-        function handleLogout(){
-            setUser(null)
-            localStorage.removeItem('loginToken')
-            navigate('/')
-        }
-        handleLogout()
+        setUser({})
+        localStorage.removeItem('loginToken')
+        console.log(user)
+        navigate('/')
     }, [])
 
     

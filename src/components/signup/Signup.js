@@ -1,11 +1,11 @@
 import React from "react";
 import './user.css'
-import FirstNameHooks from "../hooks/signupHooks/FirstNameHooks";
-import LastNameHooks from "../hooks/signupHooks/LastNameHooks";
-import EmailHooks from "../hooks/signupHooks/EmailHooks";
-import UsernameHooks from "../hooks/signupHooks/UsernameHooks";
-import PasswordHooks from "../hooks/signupHooks/PasswordHooks";
-import ConfirmPasswordHooks from "../hooks/signupHooks/ConfirmPasswordHooks";
+import FirstNameHooks from "../hooks/FirstNameHooks";
+import LastNameHooks from "../hooks/LastNameHooks";
+import EmailHooks from "../hooks/EmailHooks";
+import UsernameHooks from "../hooks/UsernameHooks";
+import PasswordHooks from "../hooks/PasswordHooks";
+import ConfirmPasswordHooks from "../hooks/ConfirmPasswordHooks";
 
 import { toast } from "react-toastify";
 
