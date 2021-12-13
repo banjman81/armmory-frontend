@@ -1,5 +1,6 @@
 .game-container{
-    height: 89vh;
+    min-height: 89vh;
+    height: fit-content;
 }
 .lists-container{
     display: flex;

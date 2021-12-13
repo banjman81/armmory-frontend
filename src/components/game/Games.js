@@ -65,7 +65,7 @@ export function Games(){
 
     
     return(
-        <div className="home-container">
+        <div className="game-container">
             <div className="sort-form">
                 <form onSubmit={(e) => handleFilter(e)}>
                     <select defaultValue={'DEFAULT'} onChange={(e) => setOption(e.target.value)}>
@@ -87,8 +87,8 @@ export function Games(){
             <div className="lists-container">
                 {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
                     gameArray.slice(currentPage*20 - 20, currentPage * 20).map((item) => {
-                        if(item.short_description.length > 75){
-                            item.short_description = `${item.short_description.slice(0, 75)}...`
+                        if(item.short_description.length > 90){
+                            item.short_description = `${item.short_description.slice(0, 90)}...`
                         }
                         return(
                         <div key={item.id} className="item-container">

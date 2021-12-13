@@ -47,10 +47,9 @@ export function Home(){
                     <div className="each-slide" key={index}>
                     <Link style={{textDecoration: 'none'}} to={`/game/${game.id}`}>
                         <div className="slideshow-home" style={{backgroundImage: `url(${game.thumbnail})`}}>
-                            <span><h3 className="title-text">{game.title}</h3></span>
                         </div>
                     </Link>
-                    
+                    <span><h3 className="title-text">{game.title}</h3></span>
                     <span><h4 className="desc-text">{game.short_description}</h4></span>
                     </div>
                 ))} 
