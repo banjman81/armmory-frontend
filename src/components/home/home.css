@@ -1,5 +1,6 @@
 .home-container{
-    height: 87vh;
+    min-height: 87vh;
+    height: fit-content;
 }
 
 .log-prompt{

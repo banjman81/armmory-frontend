@@ -40,6 +40,20 @@ export function Home(){
                     <h3>Hello {user?.firstName ? user.firstName : ""}, welcome to Armmory</h3>
                     <p>This is a place where you can review and leave a comments for different online games.</p>
                 </div>
+                {user?.username ?  ("") :
+                (<div>
+                    <h4>Signin to get access to all the features of Armmory.com</h4>
+                
+                    <div className="log-prompt">
+                        
+                        <div>
+                            <Link to="/signin"><h5>Already Have an account.</h5></Link>
+                        </div>
+                        <div>
+                            <Link to="/signup"><h5>Join Armmory</h5></Link>
+                        </div>
+                    </div>
+                </div>)}
                 
                 <div className="slide-container">
                 <Slide>
@@ -56,20 +70,6 @@ export function Home(){
                 </Slide>
             </div>
             </div>
-            {user?.username ?  ("") :
-            (<div>
-                <h3>Signin to get access to all the features of Armmory.com</h3>
-            
-                <div className="log-prompt">
-                    
-                    <div>
-                        <Link to="/signin"><h4>Already Have an account.</h4></Link>
-                    </div>
-                    <div>
-                        <Link to="/signup"><h4>Join Armmory</h4></Link>
-                    </div>
-                </div>
-            </div>)}
         </div>
     )
     
