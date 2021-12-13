@@ -110,6 +110,8 @@
     background-color: #6c757d;
     margin: 10px;
     padding: 0 10px;
+    text-decoration: none;
+    color: rgb(61, 61, 61);
 }
 
 .page-btn h3{

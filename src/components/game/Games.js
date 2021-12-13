@@ -5,15 +5,13 @@ import './game.css'
 
 
 export function Games(){
-
+    const params = useParams()
     const [isLoading, setIsLoading] = useState(false)
     const [gameArray, setGameArray] = useState([])
     const [option, setOption] = useState('')
     const [filteredGenre, setFilteredGenre] = useState([])
     const [filterOption, setFilterOption] = useState('')
-    const [pageCounter, setPageCounter] = useState(1)
-    const [low, setLow] = useState(1)
-    const [high, setHigh] = useState(20)
+    const currentPage = params.page
     let genre = []
 
     useEffect(() => {
@@ -23,7 +21,8 @@ export function Games(){
             try{
                 let payload = await axios.get('https://www.mmobomb.com/api1/games')
                 setGameArray(payload.data)
-                // console.log(payload.data)
+                console.log(currentPage)
+                console.log(payload.data.slice(currentPage*20 - 20, currentPage * 20))
                 payload.data.map(item => {
                     genre.push(item.genre)
                 })
@@ -38,7 +37,7 @@ export function Games(){
         }
 
         initialLoad()
-    }, [pageCounter])
+    }, [])
 
 
     const handleFilter = async e => {
@@ -64,23 +63,6 @@ export function Games(){
         }
     }
 
-    function handlePageBack(){
-        setPageCounter(pageCounter -1)
-        setLow(low - 20)
-        setHigh(low - 1)
-        console.log(low, high)
-        console.log(pageCounter)
-    }
-
-
-    function handlePageForwared(){
-        setPageCounter(pageCounter +1)
-        setLow(high +1)
-        setHigh(pageCounter * 20)
-        console.log(low, high)
-        console.log(pageCounter)
-    }
-
     
     return(
         <div className="home-container">
@@ -104,8 +86,7 @@ export function Games(){
             </div>
             <div className="lists-container">
                 {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
-                    gameArray.slice(low-1 || 0, high || 19).map((item) => {
-                        console.log(low, high)
+                    gameArray.slice(currentPage*20 - 20, currentPage * 20).map((item) => {
                         if(item.short_description.length > 75){
                             item.short_description = `${item.short_description.slice(0, 75)}...`
                         }
@@ -122,9 +103,9 @@ export function Games(){
                     })
                 )}
                 <div className="page-selector">
-                    <button className="page-btn"><h3 onClick={pageCounter > 1 ? () => handlePageBack() : () => console.log('')}>{"<<"}</h3></button>
-                    <h3 className="pagecounter">{pageCounter}</h3>
-                    <button className="page-btn"><h3 onClick={() => handlePageForwared()}>{">>"}</h3></button>
+                    <Link className="page-btn" to={Number(currentPage) === 1 ? '/games/1' : `/games/${Number(currentPage)-1}`}><h3>{'<<'}</h3></Link>
+                    <h3 className="pagecounter">{currentPage}</h3>
+                    <Link className="page-btn" to={`/games/${Number(currentPage)+1}`}><h3>{'>>'}</h3></Link>
                 </div>
             </div>
         </div>
