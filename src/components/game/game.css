@@ -1,3 +1,127 @@
 .game-container{
     height: 89vh;
 }
+.lists-container{
+    display: flex;
+    /* justify-content: space-evenly; */
+    flex-wrap: wrap;
+    flex-direction: row;
+    text-align: center;
+}
+
+.item-container{
+    width: 21%;
+    margin: 2%;
+    height: 35;
+    /* border: 1px solid red; */
+    border-radius: 5px;
+    padding: 5px;
+    background-color: white;
+}
+
+.item-container img{
+    width: 95%;
+}
+
+.item-container h3{
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.item-container p{
+    text-align: left;
+    padding: 10px;
+}
+.loader {
+    border: 16px solid #f3f3f3; /* Light grey */
+    border-top: 16px solid #3498db; /* Blue */
+    border-radius: 50%;
+    margin-top: 20%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-page{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-link{
+    text-decoration: none;
+    color: black;
+}
+
+.game-link:hover{
+    color: black;
+}
+
+.sort-form{
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.sort-form form{
+    position: relative;
+    top: 20px;
+    margin: 0 10px;
+}
+
+.sort-form form select{
+    margin: 0 10px;
+}
+
+.sort-form button{
+    border: 1px solid #6c757d;
+    border-radius: 5px;
+    background-color: #6c757d;
+    color: white;
+}
+
+.sort-form button:hover{
+    background-color: #636368;
+    border: 1px solid #636368;
+}
+
+.page-selector{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+}
+
+.page-selector h3{
+    margin: 0;
+}
+
+.page-btn{
+    border: 1px solid #6c757d;
+    border-radius: 5px;
+    background-color: #6c757d;
+    margin: 10px;
+    padding: 0 10px;
+}
+
+.page-btn h3{
+    margin: 0;
+}
+
+.page-btn:hover{
+    cursor: pointer;
+    margin: 10px;
+    color: white;
+}
+
+.pagecounter{
+    width: 50px;
+}

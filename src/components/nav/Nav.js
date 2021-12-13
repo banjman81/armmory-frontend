@@ -26,6 +26,9 @@ function Nav(){
                 <ul className="nav-bar">
                     <li><Link className="nav-link" to="/"><h2>Home</h2></ Link></li>
                     {user ? (
+                        <li><Link className="nav-link" to='/games/1'>Games</Link></li>
+                    ): ("")}
+                    {user ? (
                         <li><Link className="nav-link" to='/news'>MMO News</Link></li>
                     ): ("")}
                     {user ? (

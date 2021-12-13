@@ -16,6 +16,7 @@ import {UserContext} from './components/context/userContext'
 import Footer from './components/footer/Footer';
 import Profile from './components/profile/Profile';
 import Game from './components/game/Game';
+import { Games } from './components/game/Games';
 
 
 
@@ -70,6 +71,7 @@ function App() {
           />
           <Routes>
             <Route path="/" element={<Home/>}></Route>
+            <Route path="/games/:page" element={<Games/>}></Route>
             <Route path="/signup" element={<SignUp/>}></Route>
             <Route path="/signin" element={<Signin/>}></Route>
             <Route path="/logout" element={<Logout/>}></Route>

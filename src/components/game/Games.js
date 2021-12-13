@@ -1,10 +1,10 @@
 import axios from "axios";
 import React, { useState, useEffect} from "react";
 import { Link, useParams } from "react-router-dom";
-import './home.css'
+import './game.css'
 
 
-export function Home(){
+export function Games(){
 
     const [isLoading, setIsLoading] = useState(false)
     const [gameArray, setGameArray] = useState([])
