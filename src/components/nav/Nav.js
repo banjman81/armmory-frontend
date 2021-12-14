@@ -3,10 +3,14 @@ import {Link} from "react-router-dom"
 import './nav.css'
 
 import {UserContext} from '../context/userContext'
+import axios from "axios";
+import SearchList from "./SearchList";
+import { SearchContext } from "../context/searchContext";
 
 function Nav(){
     const {user} = useContext(UserContext)
     const [search, setSearch] = useState("")
+    const [results, setResults] = useState([])
 
     let linkTitle1= user?.username ? user.username : "Sign Up"
     let link1 = user?.username ? "/profile" : "/signup"
@@ -14,9 +18,22 @@ function Nav(){
     let linkTitle2= user?.username ? "Logout" : "Sign In"
     let link2 = user?.username ? '/logout' : "/signin"
 
-    function handleOnChange(e){
+    async function handleOnChange(e){
         // e.preventDefault()
-        setSearch(encodeURIComponent(e))
+        setSearch(e.target.value)
+        const response = await axios.get(`https://www.mmobomb.com/api1/games`)
+        setResults(response.data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
+        if(e.target.value ==""){
+            setResults([])
+        }
+    }
+
+    function handleOnSubmit(){
+        console.log(search)
+    }
+
+    const searchValues = {
+        results, setResults, setSearch
     }
     
     
@@ -37,8 +54,11 @@ function Nav(){
                     
                 </ul>
                 <div className="search-bar">
-                    <input type="text" name={search} onChange={e => handleOnChange(e.target.value)} />
-                    <button className="btn btn-secondary">Search</button>
+                    <input type="text" name={search} onChange={e => handleOnChange(e)} />
+                    <button className="btn btn-secondary" onClick={() => handleOnSubmit()}>Search</button>
+                    {results.length > 0 ? <SearchContext.Provider value={searchValues}>
+                        <SearchList />
+                    </SearchContext.Provider> : ""}
                 </div>
             </div>
             
