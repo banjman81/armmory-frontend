@@ -156,3 +156,44 @@
     display: flex;
     justify-content: space-evenly;
 }
+
+.textarea{
+    width: 70%;
+    height: 5%;
+    resize: none;
+}
+
+.text-area{
+    display: inline;
+}
+
+.comments{
+    list-style-type: none;
+    text-align: left;
+    width: 75%;
+    margin: auto;
+    max-height: 300px;
+    overflow-y: scroll;
+}
+
+.comments li{
+    border: 1px solid rgb(184, 184, 184);
+    border-radius: 3px;
+    margin: 5px;
+    background-color: white;
+    padding: 5px;
+}
+
+.comments::-webkit-scrollbar{
+    width: 5px;
+}
+
+.comments::-webkit-scrollbar-track{
+    background-color: rgb(138, 137, 137);
+}
+.comments::-webkit-scrollbar-thumb{
+    background-color: rgb(78, 78, 78);
+}
+.comments::-webkit-scrollbar-thumb:hover{
+    background-color: rgb(44, 44, 44);
+}
