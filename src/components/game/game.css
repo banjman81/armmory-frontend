@@ -128,3 +128,14 @@
 .pagecounter{
     width: 50px;
 }
+.screenshots{
+    display: flex;
+    list-style-type: none;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.screenshot-img{
+    width: 40vw;
+    margin: 20px;
+}

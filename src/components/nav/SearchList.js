@@ -9,10 +9,9 @@ function SearchList() {
 
     function handleClicked(){
         setResults([])
-        setSearch('')
     }
     function showList(){
-        return results.splice(0,10).map((item, index) => {
+        return results.splice(0,4).map((item, index) => {
             return (
                 <Link onClick={() => handleClicked()} className='li-link' to={`/game/${item.id}`}>
                     <li key={index}>

@@ -28,9 +28,9 @@ function Nav(){
         }
     }
 
-    function handleOnSubmit(){
-        console.log(search)
-    }
+    // function handleOnSubmit(){
+    //     console.log(search)
+    // }
 
     const searchValues = {
         results, setResults, setSearch
@@ -54,8 +54,8 @@ function Nav(){
                     
                 </ul>
                 <div className="search-bar">
-                    <input type="text" name={search} onChange={e => handleOnChange(e)} />
-                    <button className="btn btn-secondary" onClick={() => handleOnSubmit()}>Search</button>
+                    <input className="search-bar" type="text" name={search} placeholder="Search" onChange={e => handleOnChange(e)} />
+                    {/* <button className="btn btn-secondary" onClick={() => handleOnSubmit()}>Search</button> */}
                     {results.length > 0 ? <SearchContext.Provider value={searchValues}>
                         <SearchList />
                     </SearchContext.Provider> : ""}

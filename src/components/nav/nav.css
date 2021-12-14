@@ -102,3 +102,13 @@
     text-decoration: none;
     color: black;
 }
+
+.search-bar{
+    border-radius: 3px;
+    border: 1px solid gray;
+    padding: 0 5px;
+}
+
+.search-bar:focus{
+    outline: none;
+}
