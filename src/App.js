@@ -20,6 +20,7 @@ import { Games } from './components/game/Games';
 import News from './components/news/News';
 
 import PrivateRoute from './components/privateRoute/PrivateRoute';
+import axios from 'axios';
 
 
 
@@ -37,13 +38,11 @@ function App() {
         if(decodedToken.exp < Date.now()/1000){
           setUser({})
         }else{
-          setUser({
-            firstName: decodedToken.firstName,
-            lastName: decodedToken.lastName,
-            email: decodedToken.email,
-            username : decodedToken.username,
-            id: decodedToken.id
-          })
+          async function getUser(){
+            let payload = await axios.get(`http://localhost:3001/api/users/getUserByEmail/${decodedToken.email}`)
+            setUser(payload.data)
+          }
+          getUser()
         }
           
       }

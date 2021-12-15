@@ -1,4 +1,5 @@
-import React, {useContext} from 'react'
+import React, {useContext, useState, useEffect} from 'react'
+import axios from 'axios'
 
 import {UserContext} from '../context/userContext'
 import profileImg from '../img/profile.png'
@@ -6,12 +7,13 @@ import './profile.css'
 
 function Profile() {
     const {user} = useContext(UserContext)
-    console.log(user)
     return (
         <div className='profile-wrapper'>
-            <div>
-                <img src={profileImg} alt="profileimg" />
-                <h1>Hello {user.firstName}</h1>
+            <div className='profile-deatail'>
+                <img className='profile-img' src={profileImg} alt="profileImg" />
+                <h4>{user.firstName}</h4>
+                <h4>{user.lastName}</h4>
+                <h4>{user.email}</h4>
             </div>
             <div>
                 <ul>

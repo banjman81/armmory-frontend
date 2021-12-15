@@ -6,10 +6,14 @@ import './news.css'
 function News() {
     const [news, setNews] = useState([])
 
-    useEffect(async ()=>{
+    useEffect(()=>{
 
-        let payload = await axios.get('https://www.mmobomb.com/api1/latestnews')
-        setNews(payload.data)
+        async function getNews(){
+            let payload = await axios.get('https://www.mmobomb.com/api1/latestnews')
+            setNews(payload.data)
+        }
+
+        getNews()
 
     }, [])
     

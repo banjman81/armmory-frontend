@@ -53,7 +53,6 @@ function Signin(){
             
 
             setUser(userDetail.data)
-            console.log(userDetail.data)
             
             localStorage.setItem('loginToken', payload.data.token)
             notifySuccess()

@@ -21,10 +21,8 @@ export function Games(){
             try{
                 let payload = await axios.get('https://www.mmobomb.com/api1/games')
                 setGameArray(payload.data)
-                console.log(currentPage)
-                console.log(payload.data.slice(currentPage*20 - 20, currentPage * 20))
                 payload.data.map(item => {
-                    genre.push(item.genre)
+                    return genre.push(item.genre)
                 })
                 const uniqueGenre = Array.from(new Set(genre))
                 setFilteredGenre(uniqueGenre)
@@ -63,6 +61,10 @@ export function Games(){
         }
     }
 
+    async function addFavorite(game){
+        console.log(game.title)
+    }
+
     
     return(
         <div className="game-container">
@@ -97,6 +99,7 @@ export function Games(){
                                 <img src={item.thumbnail} alt="img" />
                                 <p>{item.short_description}</p>
                             </Link>
+                            <button onClick={() => addFavorite(item)}>Add Favorite</button>
                         </div>
                         )
                         

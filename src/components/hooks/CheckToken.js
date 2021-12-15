@@ -10,7 +10,6 @@ function CheckToken() {
         if(jwtToken){
             try{
                 let decodedToken = jwt.verify(jwtToken, key)
-                console.log(decodedToken)
                 if(decodedToken.exp < Date.now()/1000){
                     localStorage.removeItem("loginToken")
                     return false

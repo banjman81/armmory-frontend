@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext} from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link} from "react-router-dom";
 import './home.css'
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
@@ -8,20 +8,20 @@ import 'react-slideshow-image/dist/styles.css'
 import { UserContext } from "../context/userContext";
 
 export function Home(){
-
-    const [isLoading, setIsLoading] = useState(false)
     const [gameArray, setGameArray] = useState([])
 
     const {user} = useContext(UserContext)
 
+    
+
+    console.log(user)
+
     useEffect(() => {
 
         async function initialLoad(){
-            setIsLoading(true)
             try{
                 let payload = await axios.get('https://www.mmobomb.com/api1/games')
                 setGameArray(payload.data)
-                setIsLoading(false)
     
             }catch(err){
                 console.log(err)
