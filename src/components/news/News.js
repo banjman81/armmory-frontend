@@ -27,10 +27,10 @@ function News() {
         <div className='news-container'>
             {news.map(item => {
                 return(
-                    <div className='news-div'>
+                    <div className='news-div' key={item.id}>
                         <img src={item.thumbnail} alt="thunbnail" />
                         <div className='news-text'>
-                            <h4><a href={item.article_url}> {item.title}</a></h4>
+                            <h4><a href={item.article_url} target="_blank"> {item.title}</a></h4>
                             <p className='news-desc'>{item.short_description}</p>
                             <hr />
                             <div className='news-body'>{`${stripHtml(item.article_content).slice(0, 300)}`} <a href={item.article_url}>... read more</a></div>

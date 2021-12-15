@@ -1,7 +1,9 @@
 import axios from "axios";
-import React, { useState, useEffect} from "react";
+import React, { useState, useEffect, useContext} from "react";
 import { Link, useParams } from "react-router-dom";
 import './game.css'
+
+import { UserContext } from "../context/userContext";
 
 
 export function Games(){
@@ -13,40 +15,42 @@ export function Games(){
     const [filterOption, setFilterOption] = useState('')
     const currentPage = params.page
     let genre = []
+    
+    const {user} = useContext(UserContext)
 
     useEffect(() => {
-
-        async function initialLoad(){
-            setIsLoading(true)
-            try{
-                let payload = await axios.get('https://www.mmobomb.com/api1/games')
-                setGameArray(payload.data)
-                payload.data.map(item => {
-                    return genre.push(item.genre)
-                })
-                const uniqueGenre = Array.from(new Set(genre))
-                setFilteredGenre(uniqueGenre)
-                setIsLoading(false)
-    
-            }catch(err){
-                console.log(err)
-            }
-
-        }
-
         initialLoad()
     }, [])
 
 
     const handleFilter = async e => {
         e.preventDefault()
+        console.log(filterOption, option)
         if(option.length > 0){
-            fetchMmos(`https://www.mmobomb.com/api1/games?categoty=${filterOption}&sort-by=${option}`)
-            console.log(`https://www.mmobomb.com/api1/games?categoty=${filterOption}&sort-by=${option}`)
-        }else{
-            fetchMmos(`https://www.mmobomb.com/api1/games?categoty=${filterOption}`)
+            fetchMmos(`https://www.mmobomb.com/api1/games?sort-by=${option}`)
         }
-        
+        if(filterOption.length > 0){
+            const filteredArray = gameArray.filter(game => game.genre == filterOption)
+            setGameArray(filteredArray)
+        }
+    }
+
+    async function initialLoad(){
+        setIsLoading(true)
+        try{
+            let payload = await axios.get('https://www.mmobomb.com/api1/games')
+            setGameArray(payload.data)
+            payload.data.map(item => {
+                return genre.push(item.genre)
+            })
+            const uniqueGenre = Array.from(new Set(genre))
+            setFilteredGenre(uniqueGenre)
+            setIsLoading(false)
+
+        }catch(err){
+            console.log(err)
+        }
+
     }
 
     async function fetchMmos(url){
@@ -64,6 +68,8 @@ export function Games(){
     async function addFavorite(game){
         console.log(game.title)
     }
+
+    
 
     
     return(
@@ -99,7 +105,10 @@ export function Games(){
                                 <img src={item.thumbnail} alt="img" />
                                 <p>{item.short_description}</p>
                             </Link>
-                            <button onClick={() => addFavorite(item)}>Add Favorite</button>
+                            {
+                                user?.username ? <button onClick={() => addFavorite(item)}>Add Favorite</button> : ""
+                            }
+                            
                         </div>
                         )
                         
