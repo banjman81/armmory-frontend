@@ -17,6 +17,7 @@ import Footer from './components/footer/Footer';
 import Profile from './components/profile/Profile';
 import Game from './components/game/Game';
 import { Games } from './components/game/Games';
+import News from './components/news/News';
 
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 
@@ -81,6 +82,8 @@ function App() {
             <Route path="/profile" element={
               <PrivateRoute><Profile/></PrivateRoute>}></Route>
             <Route path="/game/:id" element={<Game/>}></Route>
+            <Route path="/news" element={
+              <PrivateRoute><News/></PrivateRoute>}></Route>
           </Routes>
         </UserContext.Provider>
         <Footer />

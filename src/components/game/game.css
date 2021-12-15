@@ -138,10 +138,11 @@
 .screenshot-img{
     width: 40vw;
     margin: 20px;
+    transition: all .3s ease-in-out;
 }
 
 .screenshot-img:hover{
-    scale: 2;
+    transform: scale(1.1);
 }
 
 .system-table{
