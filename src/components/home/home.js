@@ -12,9 +12,6 @@ export function Home(){
 
     const {user} = useContext(UserContext)
 
-    
-
-    console.log(user)
 
     useEffect(() => {
 

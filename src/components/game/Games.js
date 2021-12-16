@@ -4,6 +4,7 @@ import { Link, useParams } from "react-router-dom";
 import './game.css'
 
 import { UserContext } from "../context/userContext";
+import AxiosBackend from "../lib/axiosBackend";
 
 
 export function Games(){
@@ -66,11 +67,24 @@ export function Games(){
     }
 
     async function addFavorite(game){
-        console.log(game.title)
+        try{
+            let payload = await AxiosBackend.post(`/api/games/add-game`,
+            {
+                title: game.title,
+                gameId: game.id,
+                thumbnail: game.thumbnail,
+                platform : game.platform,
+                genre : game.genre,
+                publisher : game.publisher,
+                shortDescription : game.short_description
+            })
+
+            console.log(payload)
+        }catch(e){
+            console.log(e)
+        }
+        
     }
-
-    
-
     
     return(
         <div className="game-container">
