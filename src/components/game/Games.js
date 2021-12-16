@@ -5,6 +5,7 @@ import './game.css'
 
 import { UserContext } from "../context/userContext";
 import AxiosBackend from "../lib/axiosBackend";
+import { isElementOfType } from "react-dom/cjs/react-dom-test-utils.production.min";
 
 
 export function Games(){
@@ -14,14 +15,22 @@ export function Games(){
     const [option, setOption] = useState('')
     const [filteredGenre, setFilteredGenre] = useState([])
     const [filterOption, setFilterOption] = useState('')
+    const [favorites, setFavorites] = useState([])
+    const [change, setChanges] = useState(false)
     const currentPage = params.page
     let genre = []
     
     const {user} = useContext(UserContext)
 
     useEffect(() => {
+        async function getFaves(){
+            let payload = await AxiosBackend('/api/games/favorites')
+            setFavorites(payload.data.payload)
+        }
+
+        getFaves()
         initialLoad()
-    }, [])
+    }, [change])
 
 
     const handleFilter = async e => {
@@ -79,11 +88,23 @@ export function Games(){
                 shortDescription : game.short_description
             })
 
-            console.log(payload)
+            setChanges(!change)
         }catch(e){
             console.log(e.response.data.error)
         }
         
+    }
+
+    async function removeFavorite(game){
+        try{
+            let payload = await AxiosBackend.delete(`/api/games/delete-game/${game.id}`)
+
+            setFavorites(favorites.filter(item => item.gameId !== game.id))
+            setChanges(!change)
+
+        }catch(e){
+            console.log(e.response.data.error)
+        }
     }
     
     return(
@@ -120,7 +141,7 @@ export function Games(){
                                 <p>{item.short_description}</p>
                             </Link>
                             {
-                                user?.username ? <button onClick={() => addFavorite(item)}>Add Favorite</button> : ""
+                                user?.username ? favorites.filter(fav => fav.gameId === item.id).length > 0 ? <button className="buttons red" onClick={() => removeFavorite(item)}>Remove Favorite</button>:<button className="buttons green" onClick={() => addFavorite(item)}>Add Favorite</button> : ""
                             }
                             
                         </div>

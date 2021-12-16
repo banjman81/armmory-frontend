@@ -30,14 +30,14 @@ function Profile() {
                 <ul>
                     {favorites.map(item => {
                         return <li className='fav-list' key={item._id}>
-                        <div className='news-div' key={item.id}>
-                            <img className='fav-thumbnail' src={item.thumbnail} alt="thunbnail" />
-                            <div className='news-text'>
-                                <h4>{item.title}</h4>
-                                <p>{item.short_description}</p>
-                            </div>
-                            
-                        </div>
+                                <div className='news-div' key={item.id}>
+                                    <img className='fav-thumbnail' src={item.thumbnail} alt="thunbnail" />
+                                    <div className='news-text'>
+                                        <h4>{item.title}</h4>
+                                        <p>{item.short_description}</p>
+                                    </div>
+                                    
+                                </div>
                             </li>
                     })}
                 </ul>
