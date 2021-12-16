@@ -33,7 +33,7 @@ function News() {
                             <h4><a href={item.article_url} target="_blank"> {item.title}</a></h4>
                             <p className='news-desc'>{item.short_description}</p>
                             <hr />
-                            <div className='news-body'>{`${stripHtml(item.article_content).slice(0, 300)}`} <a href={item.article_url}>... read more</a></div>
+                            <div className='news-body'>{`${stripHtml(item.article_content).slice(0, 300)}`} <a href={item.article_url} target="_blank">... read more</a></div>
                         </div>
                         
                     </div>

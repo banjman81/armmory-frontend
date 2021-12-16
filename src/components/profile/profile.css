@@ -21,8 +21,17 @@
     list-style-type: none;
 }
 
+.fav-link{
+    text-decoration: none;
+}
+
 .fav-thumbnail{
     width: 75px;
+}
+
+.profile-table td{
+    padding: 0 10px;
+    text-align: left;
 }
 
 .buttons{
@@ -50,4 +59,13 @@
 
 .green:hover{
     background-color: rgb(62, 197, 49);
+}
+
+.blue{
+    background: rgb(95, 95, 95);
+    width: 100px;
+}
+
+.blue:hover{
+    background-color: rgb(70, 70, 70);
 }

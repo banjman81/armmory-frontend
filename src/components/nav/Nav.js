@@ -46,9 +46,9 @@ function Nav(){
                     {user?.username ? (
                         <li><Link className="nav-link" to='/news'>MMO News</Link></li>
                     ): ("")}
-                    {user?.username ? (
+                    {/* {user?.username ? (
                         <li><Link className="nav-link" to='/giveaways'>Giveaways</Link></li>
-                    ): ("")}
+                    ): ("")} */}
                     <li><Link className="nav-link" to={link1}>{linkTitle1}</ Link></li>
                     <li><Link className="nav-link" to={link2}>{linkTitle2}</Link></li>
                     

@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react'
+import { Link } from 'react-router-dom'
 
 import AxiosBackend from '../lib/axiosBackend'
 
@@ -22,14 +23,33 @@ function Profile() {
         <div className='profile-wrapper'>
             <div className='profile-detail'>
                 <img className='profile-img' src={profileImg} alt="profileImg" />
-                <h4>{user.firstName}</h4>
-                <h4>{user.lastName}</h4>
-                <h4>{user.email}</h4>
+                <table className='profile-table'>
+                    <tbody>
+                        <tr>
+                            <td>Username</td>
+                            <td>{user.username}</td>
+                        </tr>
+                        <tr>
+                            <td>First Name</td>
+                            <td>{user.firstName}</td>
+                        </tr>
+                        <tr>
+                            <td>Last Name</td>
+                            <td>{user.lastName}</td>
+                        </tr>
+                        <tr>
+                            <td>Email</td>
+                            <td>{user.email}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button className='buttons blue'>Edit</button>
             </div>
             <div className='favorite-games'>
                 <ul>
                     {favorites.map(item => {
                         return <li className='fav-list' key={item._id}>
+                            <Link className='fav-link' to={`/game/${item.gameId}`}>
                                 <div className='news-div' key={item.id}>
                                     <img className='fav-thumbnail' src={item.thumbnail} alt="thunbnail" />
                                     <div className='news-text'>
@@ -38,6 +58,7 @@ function Profile() {
                                     </div>
                                     
                                 </div>
+                            </Link>
                             </li>
                     })}
                 </ul>

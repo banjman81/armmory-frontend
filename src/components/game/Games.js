@@ -16,29 +16,34 @@ export function Games(){
     const [filterOption, setFilterOption] = useState('')
     const [favorites, setFavorites] = useState([])
     const [change, setChanges] = useState(false)
+    const [defaultArray, setDefaultArray] = useState([])
     const currentPage = params.page
     let genre = []
     
     const {user} = useContext(UserContext)
 
     useEffect(() => {
-        async function getFaves(){
-            let payload = await AxiosBackend('/api/games/favorites')
-            setFavorites(payload.data.payload)
-        }
 
-        getFaves()
+        async function getFaves(){
+        let payload = await AxiosBackend('/api/games/favorites')
+        setFavorites(payload.data.payload)
+        
+        }
         initialLoad()
+        getFaves()
     }, [change])
+
+    
+    
 
     const handleFilter = async e => {
         e.preventDefault()
-        console.log(filterOption, option)
         if(option.length > 0){
             fetchMmos(`https://www.mmobomb.com/api1/games?sort-by=${option}`)
         }
         if(filterOption.length > 0){
-            const filteredArray = gameArray.filter(game => game.genre == filterOption)
+            const temp = defaultArray
+            const filteredArray = temp.filter(game => game.genre == filterOption)
             setGameArray(filteredArray)
         }
     }
@@ -48,6 +53,7 @@ export function Games(){
         try{
             let payload = await axios.get('https://www.mmobomb.com/api1/games')
             setGameArray(payload.data)
+            setDefaultArray(payload.data)
             payload.data.map(item => {
                 return genre.push(item.genre)
             })
@@ -126,6 +132,7 @@ export function Games(){
                 </form>
             </div>
             <div className="lists-container">
+                {console.log(gameArray)}
                 {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
                     gameArray.slice(currentPage*20 - 20, currentPage * 20).map((item) => {
                         if(item.short_description.length > 90){
