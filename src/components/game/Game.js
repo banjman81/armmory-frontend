@@ -1,22 +1,38 @@
 import React, {useEffect, useState, useContext} from 'react'
-import {useParams} from 'react-router-dom'
+import {useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import './game.css'
+
+import AxiosBackend from '../lib/axiosBackend'
 
 function Game() {
     const params = useParams()
     const [game, setGame] = useState({})
     const [images, setImages] = useState([])
     const [requirement, setRequirement] = useState({})
+    const [favorite, setFavorite] = useState([])
+    const [notFound, setNotFound] = useState(false)
+
+    const navigate =useNavigate()
 
     useEffect(() => {
         async function fetchGame(){
-            let payload = await axios.get(`https://www.mmobomb.com/api1/game?id=${params.id}`)
-            setGame(payload.data)
-            setImages(payload.data.screenshots)
-            setRequirement(payload.data.minimum_system_requirements)
+            try{
+                let payload = await axios.get(`https://www.mmobomb.com/api1/game?id=${params.id}`)
+                setGame(payload.data)
+                setImages(payload.data.screenshots)
+                setRequirement(payload.data.minimum_system_requirements)
+            }catch(e){
+                setNotFound(true)
+            }
+            
+        }
+        async function getFaves(){
+            let payload = await AxiosBackend('/api/games/favorites')
+            setFavorite(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
         }
 
+        getFaves()
         fetchGame()
         
     }, [])
@@ -28,8 +44,12 @@ function Game() {
     }
     return (
         <div className='game-container'>
+            {notFound ? <h1 className="notfound-msg">Not found</h1> : ""}
+            <div style={{display : notFound ? "none" : ""}}>
             <div>
                 <h1>{game.title}</h1>
+                {favorite.length > 0 ? <button className="buttons red">Remove Favorite</button> : <button className="buttons green">Add Favorite</button>}
+                
                 <ul className='screenshots'>
                     {images ? images.map((img, index) => 
                         <li key={index}><img className='screenshot-img' src={img.image} alt="" /></li>
@@ -94,30 +114,30 @@ function Game() {
                 
             </div>
             <hr />
-            {game ? <div className='info-sec'>
+            <div className='info-sec'>
                 <div>
                     <h3>System Requirement</h3>
                     <table className='system-table'>
                         <tbody>
                             <tr>
                                 <td>Operating System</td>
-                                <td>{requirement.os}</td>
+                                <td>{requirement.os || ""}</td>
                             </tr>
                             <tr>
                                 <td>CPU</td>
-                                <td>{requirement.processor}</td>
+                                <td>{requirement.processor  || ""}</td>
                             </tr>
                             <tr>
                                 <td>RAM</td>
-                                <td>{requirement.memory}</td>
+                                <td>{requirement.memory  || ""}</td>
                             </tr>
                             <tr>
                                 <td>GPU</td>
-                                <td>{requirement.graphics}</td>
+                                <td>{requirement.graphics  || ""}</td>
                             </tr>
                             <tr>
                                 <td>storage</td>
-                                <td>{requirement.storage}</td>
+                                <td>{requirement.storage  || ""}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -149,8 +169,8 @@ function Game() {
                         </tbody>
                     </table>
                 </div>
-            </div> : ""}
-            
+            </div>
+            </div>
         </div>
     )
 }

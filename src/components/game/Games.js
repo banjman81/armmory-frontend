@@ -5,7 +5,6 @@ import './game.css'
 
 import { UserContext } from "../context/userContext";
 import AxiosBackend from "../lib/axiosBackend";
-import { isElementOfType } from "react-dom/cjs/react-dom-test-utils.production.min";
 
 
 export function Games(){
@@ -31,7 +30,6 @@ export function Games(){
         getFaves()
         initialLoad()
     }, [change])
-
 
     const handleFilter = async e => {
         e.preventDefault()
