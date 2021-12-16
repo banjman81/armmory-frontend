@@ -1,8 +1,26 @@
 .profile-wrapper{
     display: flex;
     justify-content:left;
+    padding: 20px;
+    min-height: 88vh;
+}
+
+.profile-detail{
+    margin: 0 30px;
 }
 
 .profile-img{
     width: 100px;
+}
+.favorite-games{
+    border-left: 1px solid black;
+    width: 45%;
+}
+
+.fav-list{
+    list-style-type: none;
+}
+
+.fav-thumbnail{
+    width: 75px;
 }

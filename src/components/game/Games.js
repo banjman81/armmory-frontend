@@ -81,7 +81,7 @@ export function Games(){
 
             console.log(payload)
         }catch(e){
-            console.log(e)
+            console.log(e.response.data.error)
         }
         
     }
