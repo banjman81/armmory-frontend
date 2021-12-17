@@ -35,8 +35,6 @@ function Game() {
 
         getFaves()
         fetchGame()
-        
-        
     }, [])
 
     
@@ -48,7 +46,17 @@ function Game() {
     }
 
     async function handleSubmitComment(e){
-        console.log(comment)
+        try{
+            let payload = await AxiosBackend.post('/api/comments/add-comment',
+            {
+                comment,
+                id: game.id
+            })
+            console.log(payload)
+            setComment('')
+        }catch(e){
+            console.log(e.response)
+        }
     }
 
     return (
