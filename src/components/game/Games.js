@@ -132,7 +132,6 @@ export function Games(){
                 </form>
             </div>
             <div className="lists-container">
-                {console.log(gameArray)}
                 {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
                     gameArray.slice(currentPage*20 - 20, currentPage * 20).map((item) => {
                         if(item.short_description.length > 90){

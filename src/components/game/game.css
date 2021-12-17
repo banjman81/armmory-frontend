@@ -162,6 +162,7 @@
     width: 70%;
     height: 5%;
     resize: none;
+    padding: 10px;
 }
 
 .text-area{
@@ -229,4 +230,10 @@
 
 .notfound-msg{
     margin: 50px auto;
+}
+
+
+.full-desc{
+    width: 80%;
+    margin: auto;
 }

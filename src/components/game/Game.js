@@ -12,6 +12,7 @@ function Game() {
     const [requirement, setRequirement] = useState({})
     const [favorite, setFavorite] = useState([])
     const [notFound, setNotFound] = useState(false)
+    const [comment, setComment] = useState('')
 
     const navigate =useNavigate()
 
@@ -35,13 +36,21 @@ function Game() {
         getFaves()
         fetchGame()
         
+        
     }, [])
+
+    
 
     function stripHtml(html){
         let tmp = document.createElement("DIV");
         tmp.innerHTML = html;
         return tmp.textContent || tmp.innerText || "";
     }
+
+    async function handleSubmitComment(e){
+        console.log(comment)
+    }
+
     return (
         <div className='game-container'>
             {notFound ? <h1 className="notfound-msg">Not found</h1> : ""}
@@ -55,45 +64,13 @@ function Game() {
                         <li key={index}><img className='screenshot-img' src={img.image} alt="" /></li>
                         ) :console.log('none')}
                 </ul>
-                <h5>{stripHtml(game.description)}</h5>
+                <h5 className='full-desc'>{stripHtml(game.description)}</h5>
             </div>
             <hr />
-            <div className='comment-section'>
+            <div  className='comment-section'>
                 <div>
                     <h3>Reviews</h3>
-                    <ul className='comments'>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
-                        <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
-                        </li>
+                    <ul onLoad={() => console.log('bottom')} className='comments'>
                         <li>
                             <h5>Some Name</h5>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
@@ -107,9 +84,9 @@ function Game() {
                 <p>Leave a review</p>
                 <div className='text-area'>
                     <div>
-                        <textarea className='textarea' name="" id="" cols="50" rows="3"></textarea>
+                        <textarea className='textarea' name={comment} onChange={(e) => setComment(e.target.value)} cols="50" rows="3"></textarea>
                     </div>
-                    <button>Submit</button>
+                    <button onClick={() => handleSubmitComment()}>Submit</button>
                 </div>
                 
             </div>
