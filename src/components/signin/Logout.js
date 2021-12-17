@@ -10,7 +10,6 @@ function Logout() {
     useEffect(() => {
         setUser({})
         localStorage.removeItem('loginToken')
-        console.log(user)
         navigate('/')
     }, [])
 

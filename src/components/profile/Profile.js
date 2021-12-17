@@ -18,7 +18,19 @@ function Profile() {
         }
 
         getFaves()
-    })
+    }, [favorites])
+    
+
+    async function removeFavorite(game){
+        try{
+            let payload = await AxiosBackend.delete(`/api/games/delete-game/${game.gameId}`)
+
+            setFavorites(favorites.filter(item => item.gameId !== game.id))
+
+        }catch(e){
+            console.log(e.response.data.error)
+        }
+    }
     return (
         <div className='profile-wrapper'>
             <div className='profile-detail'>
@@ -49,16 +61,23 @@ function Profile() {
                 <ul>
                     {favorites.map(item => {
                         return <li className='fav-list' key={item._id}>
-                            <Link className='fav-link' to={`/game/${item.gameId}`}>
+                            {/* <Link className='fav-link' to={`/game/${item.gameId}`}>
                                 <div className='news-div' key={item.id}>
                                     <img className='fav-thumbnail' src={item.thumbnail} alt="thunbnail" />
                                     <div className='news-text'>
                                         <h4>{item.title}</h4>
                                         <p>{item.short_description}</p>
                                     </div>
-                                    
+                                    <button>Remove</button>
                                 </div>
-                            </Link>
+                            </Link> */}
+                            <div className='game'>
+                                <Link className='fav-game-link' to={`/game/${item.gameId}`}>
+                                <img className='fav-thumbnail' src={item.thumbnail} alt="thunbnail" />
+                                <h4 className='game-title'>{item.title}</h4>
+                                </Link>
+                                <button className='buttons red' onClick={() => removeFavorite(item)}>Remove</button>
+                            </div>
                             </li>
                     })}
                 </ul>

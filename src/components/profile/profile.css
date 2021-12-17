@@ -1,3 +1,7 @@
+*{
+    /* border: 1px solid green; */
+}
+
 .profile-wrapper{
     display: flex;
     justify-content:left;
@@ -19,14 +23,40 @@
 
 .fav-list{
     list-style-type: none;
+    display: flex;
+    width: 100%;
+    margin: 10px;
 }
 
 .fav-link{
     text-decoration: none;
 }
 
+.game{
+    display: flex;
+    background-color: white;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 3px rgba(63, 63, 63, 0.74);
+}
+.game-title{
+    width: 20vw;
+}
+
+.fav-game-link{
+    display: flex;
+    text-decoration: none;
+}
+
 .fav-thumbnail{
     width: 75px;
+}
+
+.game-body{
+    background-color: white;
+    display: flex;
+    justify-content: left;
+    width: 300%;
 }
 
 .profile-table td{

@@ -69,11 +69,12 @@ function Game() {
 
     async function handleSubmitComment(e){
         try{
-            let payload = await AxiosBackend.post('/api/comments/add-comment',
+            let payload = await axios.post('http://localhost:3001/api/comments/add-comment',
             {
                 comment,
                 id: game.id
-            })
+            },
+            {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
             console.log(payload)
             setComment('')
         }catch(e){

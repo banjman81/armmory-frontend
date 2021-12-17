@@ -27,6 +27,7 @@ export function Home(){
         }
 
         initialLoad()
+        // window.location.reload()
     }, [])
 
     
