@@ -56,15 +56,42 @@ function Game() {
         }catch(e){
             console.log(e.response)
         }
-        
     }
-
-    
 
     function stripHtml(html){
         let tmp = document.createElement("DIV");
         tmp.innerHTML = html;
         return tmp.textContent || tmp.innerText || "";
+    }
+
+    async function addFavorite(game){
+        try{
+            let payload = await AxiosBackend.post(`/api/games/add-game`,
+            {
+                title: game.title,
+                gameId: game.id,
+                thumbnail: game.thumbnail,
+                platform : game.platform,
+                genre : game.genre,
+                publisher : game.publisher,
+                shortDescription : game.short_description
+            })
+
+        }catch(e){
+            console.log(e.response.data.error)
+        }
+        
+    }
+
+    async function removeFavorite(game){
+        try{
+            let payload = await AxiosBackend.delete(`/api/games/delete-game/${game.id}`)
+
+            setFavorite(favorite.filter(item => item.gameId !== game.id))
+
+        }catch(e){
+            console.log(e.response.data.error)
+        }
     }
 
     async function handleSubmitComment(e){
@@ -89,7 +116,7 @@ function Game() {
             <div>
                 <h1>{game.title}</h1>
                 <div style={{display : user?.username ? "" : "none"}}>
-                    {favorite.length > 0 ? <button className="buttons red">Remove Favorite</button> : <button className="buttons green">Add Favorite</button>}
+                    {favorite.length > 0 ? <button className="buttons red" onClick={() => removeFavorite(game)}>Remove Favorite</button> : <button className="buttons green" onClick={() => addFavorite(game)}>Add Favorite</button>}
                 </div>
                 
                 
@@ -106,12 +133,12 @@ function Game() {
                     <h3>Reviews</h3>
                     <ul onLoad={() => console.log('bottom')} className='comments'>
                         <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
+                            <h5>AnonUser123</h5>
+                            <p>This game is the best!</p>
                         </li>
                         <li>
-                            <h5>Some Name</h5>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
+                            <h5>Noobmaster69</h5>
+                            <p>I dont likethis one, players are bad.</p>
                         </li>
                         {gameComments.map((item, index)=> {
                             return(
