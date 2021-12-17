@@ -33,15 +33,19 @@ function Game() {
             }
             
         }
-        async function getFaves(){
-            let payload = await AxiosBackend.get('/api/games/favorites')
-            setFavorite(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
+        if(user?.username){
+            async function getFaves(){
+                let payload = await AxiosBackend.get('/api/games/favorites')
+                setFavorite(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
+            }
+            getFaves()
         }
+        
 
-        getFaves()
+        
         fetchGame()
         findComments()
-    }, [])
+    }, [gameComments])
 
     
 
@@ -108,9 +112,9 @@ function Game() {
                             <h5>Some Name</h5>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
                         </li>
-                        {gameComments.map(item => {
+                        {gameComments.map((item, index)=> {
                             return(
-                                <li>
+                                <li key={index}>
                                     <h5>{item.user.username}</h5>
                                     <p>{item.content}</p>
                                 </li>
@@ -119,7 +123,7 @@ function Game() {
                     </ul>
                 </div>
                 <p>Leave a review</p>
-                <div className='text-area'>
+                <div style={{display : user?.username? "" : "none"}} className='text-area'>
                     <div>
                         <textarea className='textarea' name={comment} onChange={(e) => setComment(e.target.value)} cols="50" rows="3"></textarea>
                     </div>
