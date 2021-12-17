@@ -3,6 +3,8 @@ import {useParams, useNavigate} from 'react-router-dom'
 import axios from 'axios'
 import './game.css'
 
+import { UserContext } from '../context/userContext'
+
 import AxiosBackend from '../lib/axiosBackend'
 
 function Game() {
@@ -13,6 +15,9 @@ function Game() {
     const [favorite, setFavorite] = useState([])
     const [notFound, setNotFound] = useState(false)
     const [comment, setComment] = useState('')
+    const [gameComments, setGameComments] = useState([])
+
+    const {user} = useContext(UserContext)
 
     const navigate =useNavigate()
 
@@ -29,13 +34,26 @@ function Game() {
             
         }
         async function getFaves(){
-            let payload = await AxiosBackend('/api/games/favorites')
+            let payload = await AxiosBackend.get('/api/games/favorites')
             setFavorite(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
         }
 
         getFaves()
         fetchGame()
+        findComments()
     }, [])
+
+    
+
+    async function findComments(){
+        try{
+            let foundComments = await axios.get(`http://localhost:3001/api/comments/find-comment/${params.id}`)
+            setGameComments(foundComments.data.payload)
+        }catch(e){
+            console.log(e.response)
+        }
+        
+    }
 
     
 
@@ -55,7 +73,7 @@ function Game() {
             console.log(payload)
             setComment('')
         }catch(e){
-            console.log(e.response)
+            console.log(e.response.data.error)
         }
     }
 
@@ -65,7 +83,10 @@ function Game() {
             <div style={{display : notFound ? "none" : ""}}>
             <div>
                 <h1>{game.title}</h1>
-                {favorite.length > 0 ? <button className="buttons red">Remove Favorite</button> : <button className="buttons green">Add Favorite</button>}
+                <div style={{display : user?.username ? "" : "none"}}>
+                    {favorite.length > 0 ? <button className="buttons red">Remove Favorite</button> : <button className="buttons green">Add Favorite</button>}
+                </div>
+                
                 
                 <ul className='screenshots'>
                     {images ? images.map((img, index) => 
@@ -87,6 +108,14 @@ function Game() {
                             <h5>Some Name</h5>
                             Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur natus laborum ratione, sint dolores consequatur incidunt suscipit assumenda! Placeat incidunt possimus consequatur aliquam harum non odit reiciendis debitis maxime libero!
                         </li>
+                        {gameComments.map(item => {
+                            return(
+                                <li>
+                                    <h5>{item.user.username}</h5>
+                                    <p>{item.content}</p>
+                                </li>
+                            )
+                        })}
                     </ul>
                 </div>
                 <p>Leave a review</p>
