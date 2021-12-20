@@ -93,9 +93,15 @@
 
 .blue{
     background: rgb(95, 95, 95);
-    width: 100px;
+    min-width: 100px;
 }
 
 .blue:hover{
     background-color: rgb(70, 70, 70);
+}
+
+.delete-modal{
+    border: 1px solid red;
+    margin: 30% auto;
+    margin-left: 30px;
 }

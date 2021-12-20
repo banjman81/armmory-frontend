@@ -220,8 +220,19 @@
     background: rgb(25, 95, 3);
 }
 
+.download{
+    background-color: rgb(29, 174, 231);
+    text-decoration: none;
+    color: white;
+}
+
 .red:hover{
     background-color: rgb(100, 0, 0);
+}
+
+.download:hover{
+    background-color: teal;
+    color: white;
 }
 
 .green:hover{

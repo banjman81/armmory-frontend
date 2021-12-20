@@ -1,5 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
+import Modal from 'react-modal'
 
 import AxiosBackend from '../lib/axiosBackend'
 
@@ -10,6 +11,8 @@ import './profile.css'
 function Profile() {
     const {user} = useContext(UserContext)
     const [favorites, setFavorites] = useState([])
+    const [modalIsOpen, setIsOpen] = useState(false);
+    const [deleteModal, setDeleteModal] = useState(false);
 
     useEffect(() => {
         async function getFaves(){
@@ -31,6 +34,28 @@ function Profile() {
             console.log(e.response.data.error)
         }
     }
+
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            transform: 'translate(-50%, -50%)',
+        },
+    };
+
+    function openModal() {
+        setIsOpen(true);
+    }
+    
+    function closeModal() {
+        setIsOpen(false);
+        setDeleteModal(false)
+    }
+
+
     return (
         <div className='profile-wrapper'>
             <div className='profile-detail'>
@@ -55,7 +80,34 @@ function Profile() {
                         </tr>
                     </tbody>
                 </table>
-                <button className='buttons blue' onClick={() => console.log('edit')}>Edit</button>
+                <button className='buttons blue' onClick={() => openModal()}>Change password</button>
+                <button className='buttons red' onClick={() => setDeleteModal(true)}>delete</button>
+                <div>
+                    <Modal
+                        isOpen={modalIsOpen}
+                        // onAfterOpen={afterOpenModal}
+                        onRequestClose={closeModal}
+                        style={customStyles}
+                    >
+                        <form onSubmit={() => console.log('submit')}>
+
+                        </form>
+                        <button onClick={() => closeModal()}>Close</button>
+                    </Modal>
+                    
+                    <Modal
+                        isOpen={deleteModal}
+                        onRequestClose={closeModal}
+                        style={customStyles}
+                        style={{backgroundColor : "red"}}
+                        // className='delete-modal'
+                    >
+                        <form onSubmit={() => console.log('submit')}>
+
+                        </form>
+                        <button onClick={() => closeModal()}>Close</button>
+                    </Modal>
+                </div>
             </div>
             <div className='favorite-games'>
                 <ul>

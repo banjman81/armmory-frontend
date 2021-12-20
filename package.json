@@ -12,6 +12,7 @@
     "jwt-decode": "^3.1.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-modal": "^3.14.4",
     "react-router-dom": "^6.0.2",
     "react-scripts": "4.0.3",
     "react-slideshow-image": "^3.6.0",

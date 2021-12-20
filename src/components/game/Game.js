@@ -35,8 +35,13 @@ function Game() {
         }
         if(user?.username){
             async function getFaves(){
-                let payload = await AxiosBackend.get('/api/games/favorites')
-                setFavorite(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
+                try{
+                    let payload = await AxiosBackend.get('/api/games/favorites')
+                    setFavorite(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
+                }catch(e){
+                    console.log(e.response)
+                }
+                
             }
             getFaves()
         }
@@ -95,7 +100,6 @@ function Game() {
     }
 
     async function handleSubmitComment(e){
-        console.log('comment enter')
         try{
             let payload = await axios.post('http://localhost:3001/api/comments/add-comment',
             {
@@ -110,6 +114,17 @@ function Game() {
         }
     }
 
+    async function handleDeleteComment(id){
+        try{
+            let payload = await axios.delete(`http://localhost:3001/api/comments/delete-comment/${id}`,
+            {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
+
+
+        }catch(e){
+            console.log(e.response.data.error)
+        }
+    }
+
     return (
         <div className='game-container'>
             {notFound ? <h1 className="notfound-msg">Not found</h1> : ""}
@@ -119,7 +134,9 @@ function Game() {
                 <div style={{display : user?.username ? "" : "none"}}>
                     {favorite.length > 0 ? <button className="buttons red" onClick={() => removeFavorite(game)}>Remove Favorite</button> : <button className="buttons green" onClick={() => addFavorite(game)}>Add Favorite</button>}
                 </div>
-                
+                <div style={{margin : "10px"}}>
+                    <a className='buttons download' href={game.profile_url} target="_Blank">Download</a>
+                </div>
                 
                 <ul className='screenshots'>
                     {images ? images.map((img, index) => 
@@ -148,7 +165,7 @@ function Game() {
                                         <h5>{item.user.username}</h5>
                                         <p>{item.content}</p>
                                     </div>
-                                    {item.user.username == user.username ?<button className='comment-delete' onClick={() => console.log(item._id)}>X</button>: ""}
+                                    {item.user.username == user.username ?<button className='comment-delete' onClick={() => handleDeleteComment(item._id)}>X</button>: ""}
                                 </li>
                             )
                         })}
