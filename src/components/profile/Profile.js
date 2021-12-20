@@ -55,7 +55,7 @@ function Profile() {
                         </tr>
                     </tbody>
                 </table>
-                <button className='buttons blue'>Edit</button>
+                <button className='buttons blue' onClick={() => console.log('edit')}>Edit</button>
             </div>
             <div className='favorite-games'>
                 <ul>

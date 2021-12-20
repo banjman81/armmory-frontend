@@ -95,6 +95,7 @@ function Game() {
     }
 
     async function handleSubmitComment(e){
+        console.log('comment enter')
         try{
             let payload = await axios.post('http://localhost:3001/api/comments/add-comment',
             {
@@ -142,9 +143,12 @@ function Game() {
                         </li>
                         {gameComments.map((item, index)=> {
                             return(
-                                <li key={index}>
-                                    <h5>{item.user.username}</h5>
-                                    <p>{item.content}</p>
+                                <li className='comment-banner' style={{background: item.user.username == user.username ? "#dbd6bf50" : ""}} key={index}>
+                                    <div className='comment-content'>
+                                        <h5>{item.user.username}</h5>
+                                        <p>{item.content}</p>
+                                    </div>
+                                    {item.user.username == user.username ?<button className='comment-delete' onClick={() => console.log(item._id)}>X</button>: ""}
                                 </li>
                             )
                         })}
@@ -153,7 +157,7 @@ function Game() {
                 <p>Leave a review</p>
                 <div style={{display : user?.username? "" : "none"}} className='text-area'>
                     <div>
-                        <textarea className='textarea' name={comment} onChange={(e) => setComment(e.target.value)} cols="50" rows="3"></textarea>
+                        <textarea className='textarea' name={comment}  value={comment} onChange={(e) => setComment(e.target.value)} cols="50" rows="3"></textarea>
                     </div>
                     <button onClick={() => handleSubmitComment()}>Submit</button>
                 </div>
