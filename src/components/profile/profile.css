@@ -11,6 +11,7 @@
 
 .profile-detail{
     margin: 0 30px;
+    width: 25%;
 }
 
 .profile-img{
@@ -100,8 +101,34 @@
     background-color: rgb(70, 70, 70);
 }
 
-.delete-modal{
-    border: 1px solid red;
-    margin: 30% auto;
-    margin-left: 30px;
+.password-edit{
+    margin-top: 20%;
+}
+
+.Modal {
+    position: absolute;
+    top: 45%;
+    left: 40%;
+    right: 40%;
+    bottom: 45%;
+    background-color: papayawhip;
+    border-radius: 5px;
+}
+.Modal-delete {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.219);
+}
+.del-buttons{
+    height: 50%;
+    width: 20%;
 }

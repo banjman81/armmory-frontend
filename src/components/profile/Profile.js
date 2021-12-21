@@ -1,6 +1,9 @@
 import React, {useContext, useState, useEffect} from 'react'
 import { Link } from 'react-router-dom'
 import Modal from 'react-modal'
+import axios from 'axios'
+import { toast } from "react-toastify";
+import validator from 'validator';
 
 import AxiosBackend from '../lib/axiosBackend'
 
@@ -13,6 +16,10 @@ function Profile() {
     const [favorites, setFavorites] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
+    const [edit, setEdit] = useState(false)
+    const [password, setPassword] = useState('')
+    const [newPass, setNewPass] = useState('')
+    const [confrimPass, setConfirmPass] = useState('')
 
     useEffect(() => {
         async function getFaves(){
@@ -22,6 +29,16 @@ function Profile() {
 
         getFaves()
     }, [favorites])
+
+    const notifyFailed = (input) => toast.error(`${input}`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
     
 
     async function removeFavorite(game){
@@ -46,13 +63,63 @@ function Profile() {
         },
     };
 
-    function openModal() {
-        setIsOpen(true);
-    }
+
+    Modal.setAppElement('div')
     
     function closeModal() {
-        setIsOpen(false);
         setDeleteModal(false)
+    }
+
+    async function handlePasswordChange(e){
+        e.preventDefault()
+        if(edit){
+            try{
+
+                let payload = await axios.post(`http://localhost:3001/api/users/login`, 
+                {
+                    email: user.email,
+                    password
+                })
+
+                if(payload){
+                    if(validator.isStrongPassword(newPass)){
+                        if(newPass === confrimPass){
+                            console.log('Password changed')
+                            setPassword('')
+                            setNewPass('')
+                            setConfirmPass('')
+                        }else{
+                            notifyFailed('password does not match')
+                        }
+                    }else{
+                        notifyFailed('Weak Password')
+                    }
+                }
+                
+
+            }catch(e){
+                let arr = []
+                for(let key in e.response.data.error){
+                    arr.push(e.response.data.error[key])
+                }
+                if(arr[0].length === 1){
+                    if(e.response.data.error == 'Incorrect login information. Please try again'){
+                        notifyFailed("Incorrect old password")
+                    }else{
+                        notifyFailed(e.response.data.error)
+                    }
+                }else{
+                    arr.map( error => notifyFailed(error))
+                }
+            }
+        }else{
+            console.log('keep')
+            setPassword('')
+            setNewPass('')
+            setConfirmPass('')
+        }
+        
+        
     }
 
 
@@ -80,33 +147,45 @@ function Profile() {
                         </tr>
                     </tbody>
                 </table>
-                <button className='buttons blue' onClick={() => openModal()}>Change password</button>
-                <button className='buttons red' onClick={() => setDeleteModal(true)}>delete</button>
-                <div>
-                    <Modal
-                        isOpen={modalIsOpen}
-                        // onAfterOpen={afterOpenModal}
-                        onRequestClose={closeModal}
-                        style={customStyles}
-                    >
-                        <form onSubmit={() => console.log('submit')}>
-
-                        </form>
-                        <button onClick={() => closeModal()}>Close</button>
-                    </Modal>
+                <div style={{textAlign : "left"}}>
+                    <button className='buttons blue' onClick={() => setEdit(true)}>Change password</button>
+                    <button className='buttons red' onClick={() => setDeleteModal(true)}>delete</button>
+                </div>
+                
+                <div id='main'>
                     
                     <Modal
                         isOpen={deleteModal}
                         onRequestClose={closeModal}
-                        style={customStyles}
-                        style={{backgroundColor : "red"}}
-                        // className='delete-modal'
-                    >
-                        <form onSubmit={() => console.log('submit')}>
-
-                        </form>
-                        <button onClick={() => closeModal()}>Close</button>
+                        overlayClassName="Overlay"
+                        className='Modal-delete Modal'
+                    >   
+                        <button className='buttons del-buttons blue' onClick={() => closeModal()}>Close</button>
+                        <button className='buttons del-buttons red' onClick={() => closeModal()}>Delete</button>
                     </Modal>
+                </div>
+                
+                <div className='password-edit' style={{display: edit ? "" : "none"}}>
+                    <form onSubmit={(e) => handlePasswordChange(e)}>
+                        <table style={{textAlign : "left"}}>
+                            <tbody>
+                                <tr>
+                                    <td>Old Password</td>
+                                    <td><input name={password} value={password} onChange={(e) => setPassword(e.target.value)} type="password" /></td>
+                                </tr>
+                                <tr>
+                                    <td>New Password</td>
+                                    <td><input name={newPass} value={newPass} onChange={(e) => setNewPass(e.target.value)}  type="password" /></td>
+                                </tr>
+                                <tr>
+                                    <td>Confirm Password</td>
+                                    <td><input name={confrimPass} value={confrimPass} onChange={(e) => setConfirmPass(e.target.value)}  type="password" /></td>
+                                </tr>
+                            </tbody>
+                            <button onClick={() => setEdit(false)}>close</button>
+                            <button>Submit</button>
+                        </table>
+                    </form>
                 </div>
             </div>
             <div className='favorite-games'>
