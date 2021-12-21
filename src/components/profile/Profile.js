@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Modal from 'react-modal'
 import axios from 'axios'
 import { toast } from "react-toastify";
@@ -12,7 +12,8 @@ import profileImg from '../img/profile.png'
 import './profile.css'
 
 function Profile() {
-    const {user} = useContext(UserContext)
+    const navigate = useNavigate()
+    const {user, setUser} = useContext(UserContext)
     const [favorites, setFavorites] = useState([])
     const [modalIsOpen, setIsOpen] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
@@ -20,6 +21,7 @@ function Profile() {
     const [password, setPassword] = useState('')
     const [newPass, setNewPass] = useState('')
     const [confrimPass, setConfirmPass] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         async function getFaves(){
@@ -29,6 +31,16 @@ function Profile() {
 
         getFaves()
     }, [favorites])
+
+    const notifySuccess = () => toast.success('Password changed!', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
 
     const notifyFailed = (input) => toast.error(`${input}`, {
         position: "top-right",
@@ -84,10 +96,21 @@ function Profile() {
                 if(payload){
                     if(validator.isStrongPassword(newPass)){
                         if(newPass === confrimPass){
-                            console.log('Password changed')
-                            setPassword('')
-                            setNewPass('')
-                            setConfirmPass('')
+                            try{
+                                const changedPass = await axios.put('http://localhost:3001/api/users/changepass',
+                                {
+                                    password : newPass
+                                },
+                                {headers : {"Authorization" : `Bearer ${payload.data.token}`}})
+                                setPassword('')
+                                setNewPass('')
+                                setConfirmPass('')
+                                setEdit(false)
+                                notifySuccess()
+                            }catch(e){
+                                console.log(e.response)
+                            }
+                            
                         }else{
                             notifyFailed('password does not match')
                         }
@@ -122,8 +145,32 @@ function Profile() {
         
     }
 
+    async function handleDeleteUser(){
+        setIsLoading(true)
+        try{
+            const deletedUser = await axios.delete('http://localhost:3001/api/users/delete-user',
+            {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
+            console.log(deletedUser)
+            setIsLoading(false)
+            localStorage.removeItem('loginToken')
+            setUser({})
+            navigate('/')
+        }catch(e){
+            let arr = []
+            for(let key in e.response.data.error){
+                arr.push(e.response.data.error[key])
+            }
+            if(arr[0].length === 1){
+                notifyFailed(e.response.data.error)
+            }else{
+                arr.map( error => notifyFailed(error))
+            }
+        }
+    }
+
 
     return (
+        <>{ isLoading ? ("Deleting...") :
         <div className='profile-wrapper'>
             <div className='profile-detail'>
                 <img className='profile-img' src={profileImg} alt="profileImg" />
@@ -145,6 +192,10 @@ function Profile() {
                             <td>Email</td>
                             <td>{user.email}</td>
                         </tr>
+                        <tr>
+                            <td>Role</td>
+                            <td>{user.role}</td>
+                        </tr>
                     </tbody>
                 </table>
                 <div style={{textAlign : "left"}}>
@@ -161,7 +212,7 @@ function Profile() {
                         className='Modal-delete Modal'
                     >   
                         <button className='buttons del-buttons blue' onClick={() => closeModal()}>Close</button>
-                        <button className='buttons del-buttons red' onClick={() => closeModal()}>Delete</button>
+                        <button className='buttons del-buttons red' onClick={() => handleDeleteUser()}>Delete</button>
                     </Modal>
                 </div>
                 
@@ -214,6 +265,7 @@ function Profile() {
                 </ul>
             </div>
         </div>
+    }</>
     )
 }
 
