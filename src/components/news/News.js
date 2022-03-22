@@ -9,7 +9,13 @@ function News() {
     useEffect(()=>{
 
         async function getNews(){
-            let payload = await axios.get('https://www.mmobomb.com/api1/latestnews')
+            let payload = await axios.get('https://mmo-games.p.rapidapi.com/latestnews', {
+                    headers: {
+                        'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
+                        'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'
+                    }
+                }
+            )
             setNews(payload.data)
         }
 

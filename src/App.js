@@ -27,6 +27,7 @@ import axios from 'axios';
 function App() {
 
   const [user, setUser] = useState({})
+  const [favorites, setFavorites] = useState([])
 
   const key = process.env.REACT_APP_JWT_USER_SECRET
 
@@ -55,7 +56,9 @@ function App() {
 
   const userContextValues = {
     user,
-    setUser
+    setUser,
+    favorites,
+    setFavorites
   }
   return (
     <div className="App">

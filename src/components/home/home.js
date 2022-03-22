@@ -17,7 +17,13 @@ export function Home(){
 
         async function initialLoad(){
             try{
-                let payload = await axios.get('https://www.mmobomb.com/api1/games')
+                let payload = await axios.get('https://mmo-games.p.rapidapi.com/games', {
+                    headers: {
+                        'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
+                        'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'
+                    }
+                }
+            )
                 setGameArray(payload.data)
     
             }catch(err){

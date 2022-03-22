@@ -21,7 +21,13 @@ function Nav(){
     async function handleOnChange(e){
         // e.preventDefault()
         setSearch(e.target.value)
-        const response = await axios.get(`https://www.mmobomb.com/api1/games`)
+        const response = await axios.get('https://mmo-games.p.rapidapi.com/games', {
+            headers: {
+                'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
+                'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'
+            }
+        }
+    )
         setResults(response.data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
         if(e.target.value ==""){
             setResults([])

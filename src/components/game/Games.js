@@ -14,16 +14,17 @@ export function Games(){
     const [option, setOption] = useState('')
     const [filteredGenre, setFilteredGenre] = useState([])
     const [filterOption, setFilterOption] = useState('')
-    const [favorites, setFavorites] = useState([])
+    // const [favorites, setFavorites] = useState([])
     const [change, setChanges] = useState(false)
     const [defaultArray, setDefaultArray] = useState([])
     const currentPage = params.page
     let genre = []
     
-    const {user} = useContext(UserContext)
+    const {user, favorites, setFavorites} = useContext(UserContext)
 
     useEffect(() => {
-
+        console.log(favorites)
+        console.log('---')
         async function getFaves(){
         let payload = await AxiosBackend('/api/games/favorites')
         setFavorites(payload.data.payload)
@@ -51,7 +52,13 @@ export function Games(){
     async function initialLoad(){
         setIsLoading(true)
         try{
-            let payload = await axios.get('https://www.mmobomb.com/api1/games')
+            let payload = await axios.get('https://mmo-games.p.rapidapi.com/games', {
+                    headers: {
+                        'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
+                        'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'
+                    }
+                }
+            )
             setGameArray(payload.data)
             setDefaultArray(payload.data)
             payload.data.map(item => {
@@ -134,8 +141,8 @@ export function Games(){
             <div className="lists-container">
                 {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
                     gameArray.slice(currentPage*20 - 20, currentPage * 20).map((item) => {
-                        if(item.short_description.length > 90){
-                            item.short_description = `${item.short_description.slice(0, 90)}...`
+                        if(item.short_description.length > 130){
+                            item.short_description = `${item.short_description.slice(0, 130)}...`
                         }
                         return(
                         <div key={item.id} className="item-container">

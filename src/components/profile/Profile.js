@@ -13,9 +13,8 @@ import './profile.css'
 
 function Profile() {
     const navigate = useNavigate()
-    const {user, setUser} = useContext(UserContext)
-    const [favorites, setFavorites] = useState([])
-    const [modalIsOpen, setIsOpen] = useState(false);
+    const {user, setUser, favorites, setFavorites} = useContext(UserContext)
+    // const [favorites, setFavorites] = useState(favorites)
     const [deleteModal, setDeleteModal] = useState(false);
     const [edit, setEdit] = useState(false)
     const [password, setPassword] = useState('')

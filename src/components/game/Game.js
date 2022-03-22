@@ -12,22 +12,26 @@ function Game() {
     const [game, setGame] = useState({})
     const [images, setImages] = useState([])
     const [requirement, setRequirement] = useState({})
-    const [favorite, setFavorite] = useState([])
     const [notFound, setNotFound] = useState(false)
     const [comment, setComment] = useState('')
     const [gameComments, setGameComments] = useState([])
 
-    const {user} = useContext(UserContext)
-
-    const navigate =useNavigate()
+    const {user, favorites, setFavorites} = useContext(UserContext)
 
     useEffect(() => {
         async function fetchGame(){
             try{
-                let payload = await axios.get(`https://www.mmobomb.com/api1/game?id=${params.id}`)
+                let payload = await axios.get(`https://mmo-games.p.rapidapi.com/game?id=${params.id}`, {
+                    headers: {
+                        'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
+                        'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'
+                    }
+                }
+            )
                 setGame(payload.data)
                 setImages(payload.data.screenshots)
                 setRequirement(payload.data.minimum_system_requirements)
+                console.log(images)
             }catch(e){
                 setNotFound(true)
             }
@@ -37,7 +41,7 @@ function Game() {
             async function getFaves(){
                 try{
                     let payload = await AxiosBackend.get('/api/games/favorites')
-                    setFavorite(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
+                    setFavorites(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
                 }catch(e){
                     console.log(e.response)
                 }
@@ -50,7 +54,7 @@ function Game() {
         
         fetchGame()
         findComments()
-    }, [gameComments])
+    }, [])
 
     
 
@@ -91,8 +95,9 @@ function Game() {
     async function removeFavorite(game){
         try{
             let payload = await AxiosBackend.delete(`/api/games/delete-game/${game.id}`)
+            // console.log(payload.data)
 
-            setFavorite(favorite.filter(item => item.gameId !== game.id))
+            setFavorites(favorites.filter(item => item.gameId !== game.id))
 
         }catch(e){
             console.log(e.response.data.error)
@@ -132,7 +137,7 @@ function Game() {
             <div>
                 <h1>{game.title}</h1>
                 <div style={{display : user?.username ? "" : "none"}}>
-                    {favorite.length > 0 ? <button className="buttons red" onClick={() => removeFavorite(game)}>Remove Favorite</button> : <button className="buttons green" onClick={() => addFavorite(game)}>Add Favorite</button>}
+                    {favorites.length > 0 ? <button className="buttons red" onClick={() => removeFavorite(game)}>Remove Favorite</button> : <button className="buttons green" onClick={() => addFavorite(game)}>Add Favorite</button>}
                 </div>
                 <div style={{margin : "10px"}}>
                     <a className='buttons download' href={game.profile_url} target="_Blank">Download</a>
@@ -140,8 +145,8 @@ function Game() {
                 
                 <ul className='screenshots'>
                     {images ? images.map((img, index) => 
-                        <li key={index}><img className='screenshot-img' src={img.image} alt="" /></li>
-                        ) :console.log('none')}
+                        <li key={index}><img className='screenshot-img' src={game.thumbnail} alt="image" /></li>
+                        ) :'none'}
                 </ul>
                 <h5 className='full-desc'>{stripHtml(game.description)}</h5>
             </div>
