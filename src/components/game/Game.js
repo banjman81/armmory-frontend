@@ -60,7 +60,7 @@ function Game() {
 
     async function findComments(){
         try{
-            let foundComments = await axios.get(`http://localhost:3001/api/comments/find-comment/${params.id}`)
+            let foundComments = await axios.get(`http://127.0.01:3001/api/comments/find-comment/${params.id}`)
             setGameComments(foundComments.data.payload)
         }catch(e){
             console.log(e.response)
@@ -106,7 +106,7 @@ function Game() {
 
     async function handleSubmitComment(e){
         try{
-            let payload = await axios.post('http://localhost:3001/api/comments/add-comment',
+            let payload = await axios.post('http://127.0.01:3001/api/comments/add-comment',
             {
                 comment,
                 id: game.id
@@ -121,7 +121,7 @@ function Game() {
 
     async function handleDeleteComment(id){
         try{
-            let payload = await axios.delete(`http://localhost:3001/api/comments/delete-comment/${id}`,
+            let payload = await axios.delete(`http://127.0.01:3001/api/comments/delete-comment/${id}`,
             {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
 
 
