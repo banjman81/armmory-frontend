@@ -7,7 +7,7 @@ import 'react-slideshow-image/dist/styles.css'
 
 import { UserContext } from "../context/userContext";
 
-export function Home(){
+export const Home = () => {
     const [gameArray, setGameArray] = useState([])
 
     const {user} = useContext(UserContext)
@@ -33,7 +33,6 @@ export function Home(){
         }
 
         initialLoad()
-        // window.location.reload()
     }, [])
 
     
@@ -78,5 +77,7 @@ export function Home(){
     )
     
 }
+
+// export default Home
 
 

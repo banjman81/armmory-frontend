@@ -6,7 +6,8 @@ import './App.css';
 import { ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import { Home } from './components/home/home';
+// import Home from './components/home/Home1';
+import Home from './components/home/Home';
 import SignUp from './components/signup/Signup'
 import Nav from "./components/nav/Nav"
 import Signin from './components/signin/signin';
