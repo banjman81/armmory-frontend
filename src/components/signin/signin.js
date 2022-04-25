@@ -1,4 +1,4 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import jwt from "jsonwebtoken";
 import '../signup/user.css'
 import { toast } from "react-toastify";
@@ -13,6 +13,7 @@ import {UserContext} from '../context/userContext'
 function Signin(){
 
     const {user, setUser} = useContext(UserContext)
+
 
     let navigate = useNavigate()
 
@@ -38,6 +39,12 @@ function Signin(){
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [loading, setLoading] = useState(false)
+
+    // useEffect(() => {
+    //     setLoading(false)
+    // })
+    
 
     async function handleSubmit(e){
         e.preventDefault()
@@ -55,8 +62,11 @@ function Signin(){
             setUser(userDetail.data)
             
             localStorage.setItem('loginToken', payload.data.token)
-            notifySuccess()
-            navigate('/')
+            setLoading(true)
+            setTimeout(() => { 
+                notifySuccess();
+                navigate('/') 
+            }, 2000);
 
         }catch(e){
             let arr = []
@@ -104,9 +114,9 @@ function Signin(){
                     <label htmlFor="floatingInput" style={{opacity : "0.8"}}>Password</label>
                 </div>
         
-                <button className="w-100 btn btn-lg sign-btn" type="submit">
+                {loading ? <div className="loading-page"><div className="loader"></div></div> :<button className="w-100 btn btn-lg sign-btn" type="submit">
                     Login
-                </button>
+                </button>}
                 
             </form>
         </div>
