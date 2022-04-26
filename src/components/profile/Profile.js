@@ -232,8 +232,8 @@ function Profile() {
                                     <td><input name={confrimPass} value={confrimPass} onChange={(e) => setConfirmPass(e.target.value)}  type="password" /></td>
                                 </tr>
                             </tbody>
-                            <button onClick={() => setEdit(false)}>close</button>
-                            <button>Submit</button>
+                            <button className='buttons' onClick={() => setEdit(false)}>close</button>
+                            <button className='buttons red'>Submit</button>
                         </table>
                     </form>
                 </div>
