@@ -154,7 +154,7 @@ export function Games(){
                                     {
                                         addFavorite(item)
                                         if(e.target.className === "buttons red"){
-                                            e.target = <button className="buttons red" onClick={() => removeFavorite(item)}>Remove Favorite</button>
+                                            return <button className="buttons red" onClick={() => removeFavorite(item)}>Remove Favorite</button>
                                         }
                                         
                                     }
