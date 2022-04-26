@@ -209,9 +209,14 @@ function Profile() {
                         onRequestClose={closeModal}
                         overlayClassName="Overlay"
                         className='Modal-delete Modal'
-                    >   
-                        <button className='buttons del-buttons blue' onClick={() => closeModal()}>Close</button>
-                        <button className='buttons del-buttons red' onClick={() => handleDeleteUser()}>Delete</button>
+                    >   <div>
+                        <div>
+                            <h1>CONFIRM TO DELETE</h1>
+                        </div>
+                            <button className='buttons del-buttons blue' onClick={() => closeModal()}>Close</button>
+                            <button className='buttons del-buttons red' onClick={() => handleDeleteUser()}>Delete</button>
+                        </div>
+                        
                     </Modal>
                 </div>
                 
@@ -232,7 +237,7 @@ function Profile() {
                                     <td><input name={confrimPass} value={confrimPass} onChange={(e) => setConfirmPass(e.target.value)}  type="password" /></td>
                                 </tr>
                             </tbody>
-                            <button className='buttons' onClick={() => setEdit(false)}>close</button>
+                            <button className='buttons' style={{color: "black"}} onClick={() => setEdit(false)}>close</button>
                             <button className='buttons red'>Submit</button>
                         </table>
                     </form>
