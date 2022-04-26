@@ -86,7 +86,7 @@ function Profile() {
         if(edit){
             try{
 
-                let payload = await axios.post(`http://127.0.01:8080/api/users/login`, 
+                let payload = await axios.post(`http://127.0.01:3001/api/users/login`, 
                 {
                     email: user.email,
                     password
@@ -96,7 +96,7 @@ function Profile() {
                     if(validator.isStrongPassword(newPass)){
                         if(newPass === confrimPass){
                             try{
-                                const changedPass = await axios.put('http://127.0.01:8080/api/users/changepass',
+                                const changedPass = await axios.put('http://127.0.01:3001/api/users/changepass',
                                 {
                                     password : newPass
                                 },
@@ -147,7 +147,7 @@ function Profile() {
     async function handleDeleteUser(){
         setIsLoading(true)
         try{
-            const deletedUser = await axios.delete('http://127.0.01:8080/api/users/delete-user',
+            const deletedUser = await axios.delete('http://127.0.01:3001/api/users/delete-user',
             {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
             console.log(deletedUser)
             setIsLoading(false)

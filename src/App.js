@@ -39,7 +39,7 @@ function App() {
           setUser({})
         }else{
           async function getUser(){
-            let payload = await axios.get(`http://127.0.01:8080/api/users/getUserByEmail/${decodedToken.email}`)
+            let payload = await axios.get(`http://127.0.01:3001/api/users/getUserByEmail/${decodedToken.email}`)
             setUser(payload.data)
           }
           getUser()
