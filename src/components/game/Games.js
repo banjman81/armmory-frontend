@@ -24,7 +24,6 @@ export function Games(){
 
     useEffect(() => {
         console.log(favorites)
-        console.log('---')
         async function getFaves(){
         let payload = await AxiosBackend('/api/games/favorites')
         setFavorites(payload.data.payload)
@@ -32,7 +31,7 @@ export function Games(){
         }
         initialLoad()
         getFaves()
-    }, [change])
+    }, [])
 
     
     
@@ -139,7 +138,7 @@ export function Games(){
                 </form>
             </div>
             <div className="lists-container">
-                {isLoading ? <div className="loading-page"><div className="loader"></div></div> :(
+                {isLoading || user?.favoriteGames ? <div className="loading-page"><div className="loader"></div></div> :(
                     gameArray.slice(currentPage*20 - 20, currentPage * 20).map((item) => {
                         if(item.short_description.length > 130){
                             item.short_description = `${item.short_description.slice(0, 130)}...`

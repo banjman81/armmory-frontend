@@ -23,10 +23,8 @@ import News from './components/news/News';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import axios from 'axios';
 
-
-
 function App() {
-
+  
   const [user, setUser] = useState({})
   const [favorites, setFavorites] = useState([])
 
@@ -41,7 +39,7 @@ function App() {
           setUser({})
         }else{
           async function getUser(){
-            let payload = await axios.get(`http://127.0.01:3001/api/users/getUserByEmail/${decodedToken.email}`)
+            let payload = await axios.get(`http://127.0.01:8080/api/users/getUserByEmail/${decodedToken.email}`)
             setUser(payload.data)
           }
           getUser()

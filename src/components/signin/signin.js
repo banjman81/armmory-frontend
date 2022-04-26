@@ -50,34 +50,36 @@ function Signin(){
         e.preventDefault()
         try{
 
-            let payload = await axios.post(`http://127.0.01:3001/api/users/login`, 
+            let payload = await axios.post(`http://localhost:8080/api/users/login`, 
             {
                 email,
                 password
             })
 
-            const userDetail = await axios.get(`http://127.0.01:3001/api/users/getUserByEmail/${email}`)
+            const userDetail = await axios.get(`http://localhost:8080/api/users/getUserByEmail/${email}`)
             
 
             setUser(userDetail.data)
             
             localStorage.setItem('loginToken', payload.data.token)
             setLoading(true)
-            setTimeout(() => { 
-                notifySuccess();
-                navigate('/') 
-            }, 2000);
+            // setTimeout(() => { 
+            //     notifySuccess();
+            //     navigate('/') 
+            // }, 2000);
+            navigate('/')
 
         }catch(e){
             let arr = []
-            for(let key in e.response.data.error){
-                arr.push(e.response.data.error[key])
-            }
-            if(arr[0].length === 1){
-                notifyFailed(e.response.data.error)
-            }else{
-                arr.map( error => notifyFailed(error))
-            }
+            // for(let key in e.response.data.error){
+            //     arr.push(e.response.data.error[key])
+            // }
+            // if(arr[0].length === 1){
+            //     notifyFailed(e.response.data.error)
+            // }else{
+            //     arr.map( error => notifyFailed(error))
+            // }
+            console.log(e.response)
         }
     }
 

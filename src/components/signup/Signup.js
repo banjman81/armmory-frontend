@@ -48,7 +48,7 @@ function SignUp(){
         e.preventDefault()
         try{
 
-            let payload = await axios.post('http://127.0.01:3001/api/users/create-user',
+            let payload = await axios.post('http://127.0.01:8080/api/users/create-user',
             {
                 firstName,
                 lastName,
