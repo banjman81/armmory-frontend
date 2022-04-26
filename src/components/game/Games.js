@@ -100,7 +100,6 @@ export function Games(){
 
             setChanges(!change)
             navigate('/profile')
-            nav
         }catch(e){
             console.log(e.response.data.error)
         }
