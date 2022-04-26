@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState, useEffect, useContext} from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import './game.css'
 
 import { UserContext } from "../context/userContext";
@@ -8,6 +8,7 @@ import AxiosBackend from "../lib/axiosBackend";
 
 
 export function Games(){
+    const navigate = useNavigate()
     const params = useParams()
     const [isLoading, setIsLoading] = useState(false)
     const [gameArray, setGameArray] = useState([])
@@ -98,6 +99,8 @@ export function Games(){
             })
 
             setChanges(!change)
+            navigate('/profile')
+            nav
         }catch(e){
             console.log(e.response.data.error)
         }

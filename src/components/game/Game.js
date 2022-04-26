@@ -18,6 +18,8 @@ function Game() {
 
     const {user, favorites, setFavorites} = useContext(UserContext)
 
+    const navigate = useNavigate()
+
     useEffect(() => {
         async function fetchGame(){
             try{
@@ -85,6 +87,7 @@ function Game() {
                 publisher : game.publisher,
                 shortDescription : game.short_description
             })
+            navigate('/profile')
 
         }catch(e){
             console.log(e.response.data.error)
