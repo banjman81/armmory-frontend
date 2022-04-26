@@ -27,11 +27,10 @@ export function Games(){
         async function getFaves(){
         let payload = await AxiosBackend('/api/games/favorites')
         setFavorites(payload.data.payload)
-        
         }
         initialLoad()
         getFaves()
-    }, [])
+    }, [change])
 
     
     
