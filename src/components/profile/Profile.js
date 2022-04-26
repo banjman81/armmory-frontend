@@ -213,8 +213,11 @@ function Profile() {
                         <div>
                             <h1>CONFIRM TO DELETE</h1>
                         </div>
+                        <div style={{width: '100%', display: "flex", justifyContent: "space-evenly"}}>
                             <button className='buttons del-buttons blue' onClick={() => closeModal()}>Close</button>
                             <button className='buttons del-buttons red' onClick={() => handleDeleteUser()}>Delete</button>
+                        </div>
+                            
                         </div>
                         
                     </Modal>
