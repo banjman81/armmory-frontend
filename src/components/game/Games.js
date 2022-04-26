@@ -24,7 +24,7 @@ export function Games(){
     const {user, favorites, setFavorites} = useContext(UserContext)
 
     useEffect(() => {
-        console.log(favorites)
+        // console.log(favorites)
         async function getFaves(){
         let payload = await AxiosBackend('/api/games/favorites')
         setFavorites(payload.data.payload)

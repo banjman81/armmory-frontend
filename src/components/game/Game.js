@@ -33,7 +33,7 @@ function Game() {
                 setGame(payload.data)
                 setImages(payload.data.screenshots)
                 setRequirement(payload.data.minimum_system_requirements)
-                console.log(images)
+                // console.log(images)
             }catch(e){
                 setNotFound(true)
             }
