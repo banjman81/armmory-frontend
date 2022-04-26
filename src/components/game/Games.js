@@ -30,7 +30,7 @@ export function Games(){
         }
         initialLoad()
         getFaves()
-    }, [change])
+    }, [])
 
     
     

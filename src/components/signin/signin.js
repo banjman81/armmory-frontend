@@ -63,11 +63,11 @@ function Signin(){
             
             localStorage.setItem('loginToken', payload.data.token)
             setLoading(true)
-            // setTimeout(() => { 
-            //     notifySuccess();
-            //     navigate('/') 
-            // }, 2000);
-            navigate('/')
+            setTimeout(() => { 
+                notifySuccess();
+                navigate('/') 
+            }, 2000);
+            // navigate('/')
 
         }catch(e){
             let arr = []
