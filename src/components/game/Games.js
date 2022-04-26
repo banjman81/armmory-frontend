@@ -153,7 +153,10 @@ export function Games(){
                                 user?.username ? favorites.filter(fav => fav.gameId === item.id).length > 0 ? <button className="buttons red" onClick={() => removeFavorite(item)}>Remove Favorite</button>:<button className="buttons green" onClick={(e) => 
                                     {
                                         addFavorite(item)
-                                        e.target.className = "buttons red"
+                                        if(e.target.className === "buttons red"){
+                                            e.target = <button className="buttons red" onClick={() => removeFavorite(item)}>Remove Favorite</button>
+                                        }
+                                        
                                     }
                                 }>Add Favorite</button> : ""
                             }
