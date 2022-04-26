@@ -50,13 +50,13 @@ function Signin(){
         e.preventDefault()
         try{
 
-            let payload = await axios.post(`http://localhost:3001/api/users/login`, 
+            let payload = await axios.post(`/api/users/login`, 
             {
                 email,
                 password
             })
 
-            const userDetail = await axios.get(`http://localhost:3001/api/users/getUserByEmail/${email}`)
+            const userDetail = await axios.get(`/api/users/getUserByEmail/${email}`)
             
 
             setUser(userDetail.data)
