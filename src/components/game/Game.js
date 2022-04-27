@@ -50,6 +50,9 @@ function Game() {
                 
             }
             getFaves()
+            setTimeout(() => {
+                console.log("")
+            }, 2000);
         }
         
 
@@ -118,12 +121,7 @@ function Game() {
             {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
             console.log(payload)
             setComment('')
-            setGameComments([...gameComments, 
-                {
-                    username: user.username,
-                    content: comment
-                }
-            ])
+            window.location.reload()
         }catch(e){
             console.log(e.response.data.error)
         }
