@@ -23,6 +23,7 @@ import News from './components/news/News';
 import PrivateRoute from './components/privateRoute/PrivateRoute';
 import axios from 'axios';
 
+console.disableYellowBox = true;
 function App() {
   
   const [user, setUser] = useState({})
@@ -50,7 +51,6 @@ function App() {
       localStorage.removeItem("loginToken")
       setUser({})
     }
-    console.disableYellowBox = true;
     }, [])
 
   const userContextValues = {
