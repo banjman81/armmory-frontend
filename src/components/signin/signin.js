@@ -1,5 +1,4 @@
-import React, {useState, useContext, useEffect} from "react";
-import jwt from "jsonwebtoken";
+import React, {useState, useContext} from "react";
 import '../signup/user.css'
 import { toast } from "react-toastify";
 
@@ -12,7 +11,7 @@ import {UserContext} from '../context/userContext'
 
 function Signin(){
 
-    const {user, setUser} = useContext(UserContext)
+    const { setUser} = useContext(UserContext)
 
 
     let navigate = useNavigate()

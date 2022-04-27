@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import {SearchContext} from '../context/searchContext'
 
 function SearchList() {
-    const {results, setResults, setSearch} =useContext(SearchContext)
+    const {results, setResults} =useContext(SearchContext)
 
     function handleClicked(){
         setResults([])

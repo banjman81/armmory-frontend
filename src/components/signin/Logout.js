@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom"
 import {UserContext} from '../context/userContext'
 
 function Logout() {
-    const {user , setUser, favorites, setFavorites} = useContext(UserContext)
+    const {setUser,  setFavorites} = useContext(UserContext)
     const navigate = useNavigate()
 
     useEffect(() => {

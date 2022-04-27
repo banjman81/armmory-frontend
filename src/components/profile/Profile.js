@@ -54,7 +54,7 @@ function Profile() {
 
     async function removeFavorite(game){
         try{
-            let payload = await AxiosBackend.delete(`/api/games/delete-game/${game.gameId}`)
+            await AxiosBackend.delete(`/api/games/delete-game/${game.gameId}`)
 
             setFavorites(favorites.filter(item => item.gameId !== game.id))
 
@@ -63,16 +63,6 @@ function Profile() {
         }
     }
 
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            transform: 'translate(-50%, -50%)',
-        },
-    };
 
 
     Modal.setAppElement('div')
@@ -96,7 +86,7 @@ function Profile() {
                     if(validator.isStrongPassword(newPass)){
                         if(newPass === confrimPass){
                             try{
-                                const changedPass = await axios.put('/api/users/changepass',
+                                await axios.put('/api/users/changepass',
                                 {
                                     password : newPass
                                 },
@@ -125,7 +115,7 @@ function Profile() {
                     arr.push(e.response.data.error[key])
                 }
                 if(arr[0].length === 1){
-                    if(e.response.data.error == 'Incorrect login information. Please try again'){
+                    if(e.response.data.error === 'Incorrect login information. Please try again'){
                         notifyFailed("Incorrect old password")
                     }else{
                         notifyFailed(e.response.data.error)

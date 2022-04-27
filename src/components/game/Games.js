@@ -43,7 +43,7 @@ export function Games(){
         }
         if(filterOption.length > 0){
             const temp = defaultArray
-            const filteredArray = temp.filter(game => game.genre == filterOption)
+            const filteredArray = temp.filter(game => game.genre === filterOption)
             setGameArray(filteredArray)
         }
     }
@@ -87,7 +87,7 @@ export function Games(){
 
     async function addFavorite(game){
         try{
-            let payload = await AxiosBackend.post(`/api/games/add-game`,
+            await AxiosBackend.post(`/api/games/add-game`,
             {
                 title: game.title,
                 gameId: game.id,
@@ -108,7 +108,7 @@ export function Games(){
 
     async function removeFavorite(game){
         try{
-            let payload = await AxiosBackend.delete(`/api/games/delete-game/${game.id}`)
+            await AxiosBackend.delete(`/api/games/delete-game/${game.id}`)
 
             setFavorites(favorites.filter(item => item.gameId !== game.id))
             setChanges(!change)

@@ -7,7 +7,6 @@ import { UserContext } from '../context/userContext'
 import { toast } from "react-toastify";
 
 import AxiosBackend from '../lib/axiosBackend'
-
 function Game() {
     const params = useParams()
     const [game, setGame] = useState({})
@@ -88,7 +87,7 @@ function Game() {
 
     async function addFavorite(game){
         try{
-            let payload = await AxiosBackend.post(`/api/games/add-game`,
+            await AxiosBackend.post(`/api/games/add-game`,
             {
                 title: game.title,
                 gameId: game.id,
@@ -108,7 +107,7 @@ function Game() {
 
     async function removeFavorite(game){
         try{
-            let payload = await AxiosBackend.delete(`/api/games/delete-game/${game.id}`)
+            await AxiosBackend.delete(`/api/games/delete-game/${game.id}`)
             // console.log(payload.data)
 
             setFavorites(favorites.filter(item => item.gameId !== game.id))
@@ -136,7 +135,7 @@ function Game() {
 
     async function handleDeleteComment(id){
         try{
-            let payload = await axios.delete(`/api/comments/delete-comment/${id}`,
+            await axios.delete(`/api/comments/delete-comment/${id}`,
             {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
             
             setChange(!change)
@@ -181,12 +180,12 @@ function Game() {
                         </li>
                         {gameComments.map((item, index)=> {
                             return(
-                                <li className='comment-banner' style={{background: item.user.username == user.username ? "#dbd6bf50" : ""}} key={index}>
+                                <li className='comment-banner' style={{background: item.user.username === user.username ? "#dbd6bf50" : ""}} key={index}>
                                     <div className='comment-content'>
                                         <h5>{item.user.username}</h5>
                                         <p>{item.content}</p>
                                     </div>
-                                    {item.user.username == user.username ?<button className='comment-delete' onClick={() => handleDeleteComment(item._id)}>X</button>: ""}
+                                    {item.user.username === user.username ?<button className='comment-delete' onClick={() => handleDeleteComment(item._id)}>X</button>: ""}
                                 </li>
                             )
                         })}

@@ -29,7 +29,7 @@ function Nav(){
         }
     )
         setResults(response.data.filter(item => item.title.toLowerCase().includes(search.toLowerCase())))
-        if(e.target.value ==""){
+        if(e.target.value ===""){
             setResults([])
         }
     }
