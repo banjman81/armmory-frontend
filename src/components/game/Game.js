@@ -138,7 +138,8 @@ function Game() {
         try{
             let payload = await axios.delete(`/api/comments/delete-comment/${id}`,
             {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
-
+            
+            setChange(!change)
 
         }catch(e){
             console.log(e.response.data.error)

@@ -66,7 +66,7 @@ function Signin(){
             setTimeout(() => { 
                 notifySuccess();
                 navigate('/') 
-            }, 2000);
+            }, 1000);
             // navigate('/')
 
         }catch(e){
@@ -115,7 +115,7 @@ function Signin(){
                     <label htmlFor="floatingInput" style={{opacity : "0.8"}}>Password</label>
                 </div>
         
-                {loading ? <div className="loading-page"><div className="loader"></div></div> :<button className="w-100 btn btn-lg sign-btn" type="submit">
+                {loading ? <div className="loading-page" style={{width: "100px"}}><div className="loader"></div></div> :<button className="w-100 btn btn-lg sign-btn" type="submit">
                     Login
                 </button>}
                 
