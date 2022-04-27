@@ -71,15 +71,14 @@ function Signin(){
 
         }catch(e){
             let arr = []
-            // for(let key in e.response.data.error){
-            //     arr.push(e.response.data.error[key])
-            // }
-            // if(arr[0].length === 1){
-            //     notifyFailed(e.response.data.error)
-            // }else{
-            //     arr.map( error => notifyFailed(error))
-            // }
-            console.log(e.response)
+            for(let key in e.response.data.error){
+                arr.push(e.response.data.error[key])
+            }
+            if(arr[0].length === 1){
+                notifyFailed(e.response.data.error)
+            }else{
+                arr.map( error => notifyFailed(error))
+            }
         }
     }
 

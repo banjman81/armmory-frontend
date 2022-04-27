@@ -20,6 +20,15 @@ function Game() {
     const {user, favorites, setFavorites} = useContext(UserContext)
 
     const navigate = useNavigate()
+    const notifyFailed = (input) => toast.error(`${input}`, {
+        position: "top-right",
+        autoClose: 4000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+    });
 
     useEffect(() => {
         async function fetchGame(){
@@ -120,7 +129,7 @@ function Game() {
             setComment('')
             setChange(!change)
         }catch(e){
-            console.log(e.response.data.error)
+            notifyFailed(e.response.data.error)
         }
     }
 
