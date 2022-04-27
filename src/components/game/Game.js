@@ -4,6 +4,7 @@ import axios from 'axios'
 import './game.css'
 
 import { UserContext } from '../context/userContext'
+import { toast } from "react-toastify";
 
 import AxiosBackend from '../lib/axiosBackend'
 
