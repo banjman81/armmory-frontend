@@ -105,6 +105,7 @@ function Game() {
         }catch(e){
             console.log(e.response.data.error)
         }
+        
     }
 
     async function handleSubmitComment(e){
@@ -120,6 +121,12 @@ function Game() {
         }catch(e){
             console.log(e.response.data.error)
         }
+        setGameComments([...gameComments, 
+            {
+                username: user.username,
+                content: comment
+            }
+        ])
     }
 
     async function handleDeleteComment(id){
