@@ -50,7 +50,7 @@ function App() {
       localStorage.removeItem("loginToken")
       setUser({})
     }
-    
+    console.disableYellowBox = true;
     }, [])
 
   const userContextValues = {
