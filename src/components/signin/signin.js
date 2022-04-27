@@ -115,7 +115,7 @@ function Signin(){
                     <label htmlFor="floatingInput" style={{opacity : "0.8"}}>Password</label>
                 </div>
         
-                {loading ? <div className="loading-page" style={{width: "50px", height: "50px"}}><div className="loader" style={{width: "50px", height: "50px"}}></div></div> :<button className="w-100 btn btn-lg sign-btn" type="submit">
+                {loading ? <div className="loading-page" style={{width: "50px", height: "50px", margin: "0 auto"}}><div className="loader" style={{width: "50px", height: "50px"}}></div></div> :<button className="w-100 btn btn-lg sign-btn" type="submit">
                     Login
                 </button>}
                 
