@@ -10,6 +10,7 @@ import AxiosBackend from '../lib/axiosBackend'
 function Game() {
     const params = useParams()
     const [game, setGame] = useState({})
+    const [change, setChange] = useState(false)
     const [images, setImages] = useState([])
     const [requirement, setRequirement] = useState({})
     const [notFound, setNotFound] = useState(false)
@@ -50,16 +51,13 @@ function Game() {
                 
             }
             getFaves()
-            setTimeout(() => {
-                console.log("")
-            }, 2000);
         }
         
 
         
         fetchGame()
         findComments()
-    }, [])
+    }, [change])
 
     
 
@@ -108,7 +106,6 @@ function Game() {
         }catch(e){
             console.log(e.response.data.error)
         }
-        
     }
 
     async function handleSubmitComment(e){
@@ -121,7 +118,7 @@ function Game() {
             {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
             console.log(payload)
             setComment('')
-            window.location.reload()
+            setChange(!change)
         }catch(e){
             console.log(e.response.data.error)
         }
@@ -144,9 +141,9 @@ function Game() {
             <div style={{display : notFound ? "none" : ""}}>
             <div>
                 <h1>{game.title}</h1>
-                {user?.username ? <div style={{display : user?.username ? "" : "none"}}>
+                <div style={{display : user?.username ? "" : "none"}}>
                     {favorites.length > 0 ? <button className="buttons red" onClick={() => removeFavorite(game)}>Remove Favorite</button> : <button className="buttons green" onClick={() => addFavorite(game)}>Add Favorite</button>}
-                </div> : ""}
+                </div>
                 <div style={{margin : "10px"}}>
                     <a className='buttons download' href={game.profile_url} target="_Blank">Download</a>
                 </div>
