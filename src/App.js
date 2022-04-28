@@ -12,6 +12,7 @@ import SignUp from './components/signup/Signup'
 import Nav from "./components/nav/Nav"
 import Signin from './components/signin/signin';
 import Logout from './components/signin/Logout';
+import AxiosBackend from './components/lib/axiosBackend';
 
 import {UserContext} from './components/context/userContext'
 import Footer from './components/footer/Footer';
@@ -40,7 +41,7 @@ function App() {
           setUser({})
         }else{
           async function getUser(){
-            let payload = await axios.get(`/api/users/getUserByEmail/${decodedToken.email}`)
+            let payload = await AxiosBackend.get(`/api/users/getUserByEmail/${decodedToken.email}`)
             setUser(payload.data)
           }
           getUser()

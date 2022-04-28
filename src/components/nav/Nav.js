@@ -3,9 +3,10 @@ import {Link} from "react-router-dom"
 import './nav.css'
 
 import {UserContext} from '../context/userContext'
-import axios from "axios";
+// import axios from "axios";
 import SearchList from "./SearchList";
 import { SearchContext } from "../context/searchContext";
+import AxiosBackend from "../lib/axiosBackend";
 
 function Nav(){
     const {user} = useContext(UserContext)
@@ -21,7 +22,7 @@ function Nav(){
     async function handleOnChange(e){
         // e.preventDefault()
         setSearch(e.target.value)
-        const response = await axios.get('https://mmo-games.p.rapidapi.com/games', {
+        const response = await AxiosBackend.get('https://mmo-games.p.rapidapi.com/games', {
             headers: {
                 'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
                 'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'

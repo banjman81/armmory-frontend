@@ -10,7 +10,7 @@ import ConfirmPasswordHooks from "../hooks/ConfirmPasswordHooks";
 import { toast } from "react-toastify";
 
 import MainLogo from '../img/logo.svg'
-import axios from "axios";
+import AxiosBackend from "../lib/axiosBackend";
 import { useNavigate } from "react-router-dom";
 
 function SignUp(){
@@ -48,7 +48,7 @@ function SignUp(){
         e.preventDefault()
         try{
 
-            let payload = await axios.post('/api/users/create-user',
+            let payload = await AxiosBackend.post('/api/users/create-user',
             {
                 firstName,
                 lastName,

@@ -35,10 +35,10 @@ function News() {
                     <div className='news-div' key={item.id}>
                         <img src={item.thumbnail} alt="thunbnail" />
                         <div className='news-text'>
-                            <h4><a href={item.article_url} target="_blank"> {item.title}</a></h4>
+                            <h4><a href={item.article_url} target="_blank" rel="noreferrer noopener"> {item.title}</a></h4>
                             <p className='news-desc'>{item.short_description}</p>
                             <hr />
-                            <div className='news-body'>{`${stripHtml(item.article_content).slice(0, 300)}`} <a href={item.article_url} target="_blank">... read more</a></div>
+                            <div className='news-body'>{`${stripHtml(item.article_content).slice(0, 300)}`} <a href={item.article_url} target="_blank" rel="noreferrer noopener">... read more</a></div>
                         </div>
                         
                     </div>

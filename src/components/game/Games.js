@@ -25,12 +25,17 @@ export function Games(){
 
     useEffect(() => {
         // console.log(favorites)
+        setIsLoading(true)
         async function getFaves(){
         let payload = await AxiosBackend('/api/games/favorites')
         setFavorites(payload.data.payload)
         }
         initialLoad()
         getFaves()
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 500);
+        
     }, [])
 
     
@@ -51,7 +56,7 @@ export function Games(){
     async function initialLoad(){
         setIsLoading(true)
         try{
-            let payload = await axios.get('https://mmo-games.p.rapidapi.com/games', {
+            let payload = await AxiosBackend.get('https://mmo-games.p.rapidapi.com/games', {
                     headers: {
                         'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
                         'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'
@@ -65,7 +70,6 @@ export function Games(){
             })
             const uniqueGenre = Array.from(new Set(genre))
             setFilteredGenre(uniqueGenre)
-            setIsLoading(false)
 
         }catch(err){
             console.log(err)
@@ -76,7 +80,7 @@ export function Games(){
     async function fetchMmos(url){
         setIsLoading(true)
         try{
-            let payload = await axios.get(url)
+            let payload = await AxiosBackend.get(url)
             setGameArray(payload.data)
             setIsLoading(false)
 

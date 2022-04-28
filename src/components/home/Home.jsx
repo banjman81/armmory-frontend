@@ -6,6 +6,7 @@ import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css'
 
 import { UserContext } from "../context/userContext";
+import AxiosBackend from "../lib/axiosBackend";
 
 function Home() {
     const [gameArray, setGameArray] = useState([])
@@ -17,7 +18,7 @@ function Home() {
 
         async function initialLoad(){
             try{
-                let payload = await axios.get('https://mmo-games.p.rapidapi.com/games', {
+                let payload = await AxiosBackend.get('https://mmo-games.p.rapidapi.com/games', {
                     headers: {
                         'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
                         'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'

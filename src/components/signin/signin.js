@@ -3,10 +3,10 @@ import '../signup/user.css'
 import { toast } from "react-toastify";
 
 import MainLogo from '../img/logo.svg'
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import {UserContext} from '../context/userContext'
+import AxiosBackend from "../lib/axiosBackend";
 
 
 function Signin(){
@@ -49,23 +49,23 @@ function Signin(){
         e.preventDefault()
         try{
 
-            let payload = await axios.post(`/api/users/login`, 
+            let payload = await AxiosBackend.post(`/api/users/login`, 
             {
                 email,
                 password
             })
 
-            const userDetail = await axios.get(`/api/users/getUserByEmail/${email}`)
+            const userDetail = await AxiosBackend.get(`/api/users/getUserByEmail/${email}`)
             
 
             setUser(userDetail.data)
             
             localStorage.setItem('loginToken', payload.data.token)
-            setLoading(true)
-            setTimeout(() => { 
+            // setLoading(true)
+            // setTimeout(() => { 
                 notifySuccess();
                 navigate('/') 
-            }, 1000);
+            // }, 1000);
             // navigate('/')
 
         }catch(e){

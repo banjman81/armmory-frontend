@@ -9,6 +9,8 @@ import { toast } from "react-toastify";
 import AxiosBackend from '../lib/axiosBackend'
 function Game() {
     const params = useParams()
+    const [isLoading, setIsLoading] = useState(true)
+    const [isFav, setIsFav] = useState(false)
     const [game, setGame] = useState({})
     const [change, setChange] = useState(false)
     const [images, setImages] = useState([])
@@ -33,13 +35,17 @@ function Game() {
     useEffect(() => {
         async function fetchGame(){
             try{
-                let payload = await axios.get(`https://mmo-games.p.rapidapi.com/game?id=${params.id}`, {
+                let payload = await AxiosBackend.get(`https://mmo-games.p.rapidapi.com/game?id=${params.id}`, {
                     headers: {
                         'X-RapidAPI-Host': 'mmo-games.p.rapidapi.com',
                         'X-RapidAPI-Key': '5c90bd75d5mshf619a3c3f092c0bp175212jsn17382299e947'
                     }
                 }
             )
+            let payload2 = await AxiosBackend.get('/api/games/favorites')
+            if((payload2.data.payload.filter(item => Number(item.gameId) === Number(params.id))).length > 0){
+                setIsFav(true)
+            }
                 setGame(payload.data)
                 setImages(payload.data.screenshots)
                 setRequirement(payload.data.minimum_system_requirements)
@@ -49,30 +55,19 @@ function Game() {
             }
             
         }
-        if(user?.username){
-            async function getFaves(){
-                try{
-                    let payload = await AxiosBackend.get('/api/games/favorites')
-                    setFavorites(payload.data.payload.filter(item => Number(item.gameId) === Number(params.id)))
-                }catch(e){
-                    console.log(e.response)
-                }
-                
-            }
-            getFaves()
-        }
-        
-
-        
         fetchGame()
         findComments()
+        console.log(isFav, 59)
+        setTimeout(() => {
+            console.log(isFav, 61)
+            setIsLoading(false) 
+        }, 250);
+        
     }, [change])
-
-    
 
     async function findComments(){
         try{
-            let foundComments = await axios.get(`/api/comments/find-comment/${params.id}`)
+            let foundComments = await AxiosBackend.get(`/api/comments/find-comment/${params.id}`)
             setGameComments(foundComments.data.payload)
         }catch(e){
             console.log(e.response)
@@ -100,7 +95,7 @@ function Game() {
             navigate('/profile')
 
         }catch(e){
-            console.log(e.response.data.error)
+            notifyFailed(e.response.data.error)
         }
         
     }
@@ -119,7 +114,7 @@ function Game() {
 
     async function handleSubmitComment(e){
         try{
-            let payload = await axios.post('/api/comments/add-comment',
+            let payload = await AxiosBackend.post('/api/comments/add-comment',
             {
                 comment,
                 id: game.id
@@ -135,7 +130,7 @@ function Game() {
 
     async function handleDeleteComment(id){
         try{
-            await axios.delete(`/api/comments/delete-comment/${id}`,
+            await AxiosBackend.delete(`/api/comments/delete-comment/${id}`,
             {headers : {"Authorization" : `Bearer ${localStorage.getItem('loginToken')}`}})
             
             setChange(!change)
@@ -146,13 +141,14 @@ function Game() {
     }
 
     return (
-        <div className='game-container'>
+        <>
+        {isLoading ? <div className="loading-page"><div className="loader"></div></div> : <div className='game-container'>
             {notFound ? <h1 className="notfound-msg">Not found</h1> : ""}
             <div style={{display : notFound ? "none" : ""}}>
             <div>
                 <h1>{game.title}</h1>
                 <div style={{display : user?.username ? "" : "none"}}>
-                    {favorites.length > 0 ? <button className="buttons red" onClick={() => removeFavorite(game)}>Remove Favorite</button> : <button className="buttons green" onClick={() => addFavorite(game)}>Add Favorite</button>}
+                    {isFav ? <button className="buttons red" onClick={() => removeFavorite(game)}>Remove Favorite</button> : <button className="buttons green" onClick={() => addFavorite(game)}>Add Favorite</button>}
                 </div>
                 <div style={{margin : "10px"}}>
                     <a className='buttons download' href={game.profile_url} target="_Blank">Download</a>
@@ -258,7 +254,8 @@ function Game() {
                 </div>
             </div>
             </div>
-        </div>
+        </div>}
+        </>
     )
 }
 
