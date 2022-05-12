@@ -1,6 +1,6 @@
 import axios from "axios";
 
-let url = process.env.AXIOS === "production" ? "" : "http://localhost:3001"
+let url = process.env.REACT_APP_AXIOS === "production" ? "" : "http://localhost:3001"
 
 const AxiosBackend = axios.create({
     baseURL : url,
