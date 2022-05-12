@@ -38,6 +38,7 @@ function Home() {
 
     
     return(
+        <>
         <div className="home-container">
             <div>
                 <div className="welcome">
@@ -75,6 +76,10 @@ function Home() {
             </div>
             </div>
         </div>
+        <div className="m-home-container">
+
+        </div>
+        </>
     )
 }
 

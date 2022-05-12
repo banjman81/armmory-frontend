@@ -112,3 +112,34 @@
 .search-bar:focus{
     outline: none;
 }
+
+
+
+@media only screen and (max-width: 600px) {
+    .nav-container{
+        display: none;
+    }
+    .nav-link:hover{
+        color: white;
+    }
+}
+
+@media only screen and (min-width: 601px) {
+    .m-nav-container{
+        display: none;
+    }
+}
+
+/* --------- MOBILE --------- */
+
+.m-nav-container{
+    background-color: gray;
+    display: flex;
+    justify-content: space-between;
+}
+.m-nav-container Link{
+    color: white;
+    text-decoration: none;
+}
+
+

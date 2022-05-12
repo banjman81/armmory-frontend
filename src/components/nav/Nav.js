@@ -2,16 +2,103 @@ import React, {useContext, useState} from "react";
 import {Link} from "react-router-dom"
 import './nav.css'
 
+import {
+    AppBar,
+    Toolbar,
+    Avatar,
+    Box,
+    Divider,
+    IconButton,
+    List,
+    ListItem,
+    ListItemIcon,
+    ListItemText,
+    makeStyles,
+    CssBaseline,
+    Drawer,
+    Typography
+  } from "@material-ui/core";
+//   import {
+//     Apps,
+//     Menu,
+//     ContactMail,
+//     AssignmentInd,
+//     Home
+//   } from "@material-ui/icons";
+// import Button from '@mui/material/Button';
+// import MenuIcon from '@mui/icons-material/Menu';
+
 import {UserContext} from '../context/userContext'
-// import axios from "axios";
 import SearchList from "./SearchList";
 import { SearchContext } from "../context/searchContext";
 import AxiosBackend from "../lib/axiosBackend";
+const useStyles = makeStyles((theme) => ({
+    menuSliderContainer: {
+      width: 250,
+      background: "#511",
+      height: "100%"
+    },
+    avatar: {
+      margin: "0.5rem auto",
+      padding: "1rem",
+      width: theme.spacing(13),
+      height: theme.spacing(13)
+    },
+    listItem: {
+      color: "tan"
+    }
+  }));
+  
+  // const listItems = [
+  //   {
+  //     listIcon: <Home />,
+  //     listText: "Home"
+  //   },
+  //   {
+  //     listIcon: <AssignmentInd />,
+  //     listText: "Resume"
+  //   },
+  //   {
+  //     listIcon: <Apps />,
+  //     listText: "Portfolio"
+  //   },
+  //   {
+  //     listIcon: <ContactMail />,
+  //     listText: "Contacts"
+  //   }
+  // ];
 
 function Nav(){
     const {user} = useContext(UserContext)
     const [search, setSearch] = useState("")
     const [results, setResults] = useState([])
+    // const classes = useStyles();
+    // const [open, setOpen] = useState(false);
+  
+    // const toggleSlider = () => {
+    //   setOpen(!open);
+    // };
+  
+    // const sideList = () => (
+    //   <Box className={classes.menuSliderContainer} component="div">
+    //     <Avatar
+    //       className={classes.avatar}
+    //       src="https://i.ibb.co/rx5DFbs/avatar.png"
+    //       alt="Juaneme8"
+    //     />
+    //     <Divider />
+    //     <List>
+    //       {listItems.map((listItem, index) => (
+    //         <ListItem className={classes.listItem} button key={index}>
+    //           <ListItemIcon className={classes.listItem}>
+    //             {listItem.listIcon}
+    //           </ListItemIcon>
+    //           <ListItemText primary={listItem.listText} />
+    //         </ListItem>
+    //       ))}
+    //     </List>
+    //   </Box>
+    // );
 
     let linkTitle1= user?.username ? user.username : "Sign Up"
     let link1 = user?.username ? "/profile" : "/signup"
@@ -34,10 +121,6 @@ function Nav(){
             setResults([])
         }
     }
-
-    // function handleOnSubmit(){
-    //     console.log(search)
-    // }
 
     const searchValues = {
         results, setResults, setSearch
@@ -68,7 +151,24 @@ function Nav(){
                     </SearchContext.Provider> : ""}
                 </div>
             </div>
-            
+
+
+            {/* <div className="m-nav-container">
+                <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                sx={{ mr: 2 }}
+            >
+                <MenuIcon onClick={toggleSlider} />
+                </IconButton>
+                <Link className="nav-link" to='/signin'><Button color="inherit">Sign In</Button></Link>
+                
+            <Drawer open={open} anchor="right" onClose={toggleSlider}>
+                {sideList()}
+            </Drawer>
+            </div> */}
             
         </div>
     )
