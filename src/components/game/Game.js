@@ -156,7 +156,7 @@ function Game() {
                 
                 <ul className='screenshots'>
                     {images ? images.map((img, index) => 
-                        <li key={index}><img className='screenshot-img' src={game.thumbnail} alt="image" /></li>
+                        <li key={index}><img className='screenshot-img' src={img.image} alt="image" /></li>
                         ) :'none'}
                 </ul>
                 <h5 className='full-desc'>{stripHtml(game.description)}</h5>

@@ -5,8 +5,6 @@ import './App.css';
 
 import { ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-
-// import Home from './components/home/Home1';
 import Home from './components/home/Home';
 import SignUp from './components/signup/Signup'
 import Nav from "./components/nav/Nav"
@@ -22,7 +20,6 @@ import { Games } from './components/game/Games';
 import News from './components/news/News';
 
 import PrivateRoute from './components/privateRoute/PrivateRoute';
-import axios from 'axios';
 
 console.disableYellowBox = true;
 function App() {
